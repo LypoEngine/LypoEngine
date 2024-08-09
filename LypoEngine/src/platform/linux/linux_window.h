@@ -37,6 +37,7 @@ namespace platform
             void initialize() noexcept;
             void shutdown() noexcept;
         private:
+            struct DataImpl;
             std::unique_ptr<DataImpl> p_data_impl_ = nullptr;
         };
 }

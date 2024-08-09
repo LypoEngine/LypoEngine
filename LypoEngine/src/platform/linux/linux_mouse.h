@@ -34,6 +34,7 @@ namespace platform
 		static void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) noexcept;
 		static void buttonCallback(GLFWwindow* window, int button, int action, int mods) noexcept;
 	private:
+		struct DataImpl;
 		static std::unique_ptr<DataImpl> p_data_impl_;
 	};
 }

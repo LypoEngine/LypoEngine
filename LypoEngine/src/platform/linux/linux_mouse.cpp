@@ -3,9 +3,9 @@
 //
 #include "linux_mouse.h"
 
-namespace core
+namespace platform
 {
-	struct Mouse::DataImpl
+	struct LinuxMouse::DataImpl
 	{
 		DataImpl() : x_position(0.0), y_position(0.0), x_offset(0.0), y_offset(0.0), sensitivity(1.0f) {}
 		
@@ -15,10 +15,7 @@ namespace core
 		bool buttons[8] = {false};
 		GLFWwindow* window;
 	};
-}
 
-namespace platform
-{
 	std::unique_ptr<LinuxMouse::DataImpl> LinuxMouse::p_data_impl_ = std::make_unique<LinuxMouse::DataImpl>();
 
 	LinuxMouse::LinuxMouse(void* window, const core::MouseConfigurations& configuration) noexcept
