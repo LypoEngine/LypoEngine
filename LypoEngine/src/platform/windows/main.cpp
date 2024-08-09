@@ -1,10 +1,14 @@
 //
 // Created by lapor on 7/19/2024.
 //
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "core/window.h"
+#include "core/mouse.h"
+
 #include <iostream>
+
 #include "core/rendering/VertexBuffer.hpp"
 #include "core/rendering/IndexBuffer.hpp"
 #include "core/rendering/VertexArray.hpp"
@@ -19,38 +23,16 @@ unsigned int createTextureShader();
 
 int main(void)
 {
-    GLFWwindow* window;
-
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
-        std::cout << "Error in glad load" << std::endl;
-        return -1;
-    }
-
+    auto window = core::Window::create("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
+    auto mouse = core::Mouse::create(window->getNativeWindow());
+  
     //from learnopengl.com
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-/*    unsigned int shaderProgram = createBasicShader();
+    /*unsigned int shaderProgram = createBasicShader();
     unsigned int textureShader = createTextureShader();*/
-
 
     std::string fragmentPath = "../LypoEngine/assets/shaders/basicColorShader.frag.glsl";
     std::string vertexPath = "../LypoEngine/assets/shaders/basicColorShader.vert.glsl";
@@ -113,16 +95,11 @@ int main(void)
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
 
-
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
         /* Render here */
-        //vertex buffer
-
-        glClearColor(0.1f, 0.1f, 0.1f, 1);
         glClear(GL_COLOR_BUFFER_BIT);
-
 
         m_Texture->bind();
         textureShader->bind();
@@ -135,13 +112,19 @@ int main(void)
         glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(window->getNativeWindow()));
 
         /* Poll for and process events */
-        glfwPollEvents();
-    }
+        double xpos, ypos;
+        mouse->getPosition(xpos, ypos);
+        std::cout << "Mouse Position (" << xpos << ", " << ypos << ")" << std::endl;
 
-    glfwTerminate();
+        if (mouse->isButtonPressed(core::ButtonValue::BUTTON_RIGHT))
+        {
+            std::cout << " Right mouse button pressed" << std::endl;
+        }
+        window->onUpdate();
+    }
     return 0;
 }
 
