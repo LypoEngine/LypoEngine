@@ -90,7 +90,7 @@ int main(void)
             0.0f, -0.5f, 0.0f
     };
 
-    Lypo::VertexBuffer::Create(vertices, sizeof(vertices));
+    Lypo::VertexBuffer::create(vertices, sizeof(vertices));
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
@@ -98,7 +98,7 @@ int main(void)
 
     //index buffer;
     unsigned int indecies[3] = {0, 1, 2};
-    Lypo::IndexBuffer::Create(indecies, sizeof(indecies));
+    Lypo::IndexBuffer::create(indecies, sizeof(indecies));
     
     
     /* Loop until the user closes the window */
