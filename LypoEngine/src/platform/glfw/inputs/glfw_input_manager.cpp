@@ -7,7 +7,7 @@
 #include "core/events/event_bus.h"
 #include "core/events/key_event.h"
 
-namespace hive {
+namespace Lypo {
 
     bool GlfwInputManager::isKeyDown(const int key) const
     {
@@ -17,6 +17,21 @@ namespace hive {
     bool GlfwInputManager::isKeyUp(const int key) const
     {
         return glfwGetKey(window_, key) == GLFW_RELEASE;
+    }
+
+    bool GlfwInputManager::isKeyPressed(const int key) {
+
+        // key down, prev key down
+        //
+        const bool pressed = isKeyDown(key) && !keyPressState[key];
+        keyPressState[key] = pressed;
+        return pressed;
+    }
+
+    bool GlfwInputManager::isKeyReleased(const int key) {
+       const bool released = isKeyUp(key) && !keyReleaseState[key];
+        keyReleaseState[key] = released;
+        return released;
     }
 
     // Mouse inputs
@@ -54,30 +69,30 @@ namespace hive {
 
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        hive::EventBus& bus = hive::EventBus::getInstance();
-        std::cout << "--------key_callback----------" << std::endl;
-        std::cout   << "Key: "      << key << std::endl
-                    << "Scancode: " << scancode << std::endl
-                    << "Action: "   << action << std::endl
-                    << "Mods: "     << mods << std::endl;
+        Lypo::EventBus& bus = Lypo::EventBus::getInstance();
+        // std::cout << "--------key_callback----------" << std::endl;
+        // std::cout   << "Key: "      << key << std::endl
+        //             << "Scancode: " << scancode << std::endl
+        //             << "Action: "   << action << std::endl
+        //             << "Mods: "     << mods << std::endl;
 
         switch (action)
         {
             case GLFW_PRESS:
             {
-                hive::KeyPressedEvent event(key, false);
+                Lypo::KeyPressedEvent event(key, false);
                 bus.dispatch(&event);
                 break;
             }
             case GLFW_RELEASE:
             {
-                hive::KeyReleasedEvent event(key);
+                Lypo::KeyReleasedEvent event(key);
                 bus.dispatch(&event);
                 break;
             }
             case GLFW_REPEAT:
             {
-                hive::KeyPressedEvent event(key, true);
+                Lypo::KeyPressedEvent event(key, true);
                 bus.dispatch(&event);
                 break;
             }

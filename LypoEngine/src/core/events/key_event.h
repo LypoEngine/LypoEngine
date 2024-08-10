@@ -6,7 +6,7 @@
 #define KEYEVENT_H
 #include "event.h"
 
-#define KeyCode int
+using KeyCode = int;
 
 namespace hive {
 
