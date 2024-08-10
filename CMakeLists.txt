@@ -12,6 +12,12 @@ include_directories(LypoEngine/dep/glfw/include)
 add_subdirectory(LypoEngine/dep/glad)
 include_directories(LypoEngine/dep/glad/include)
 
+add_subdirectory(LypoEngine/dep/glm)
+include_directories(LypoEngine/dep/glm/glm)
+
+add_subdirectory(LypoEngine/dep/entt)
+include_directories(LypoEngine/dep/entt/single_include)
+
 include_directories(LypoEngine/dep/stb_image)
 add_library(stb_image STATIC LypoEngine/dep/stb_image/stb_image.cpp)
 
@@ -36,4 +42,4 @@ endif ()
 
 add_executable(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
 
-target_link_libraries(lypo_engine glfw glad stb_image)
+target_link_libraries(lypo_engine glfw glad glm EnTT stb_image)

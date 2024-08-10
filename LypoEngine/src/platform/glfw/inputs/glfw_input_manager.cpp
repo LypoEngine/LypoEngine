@@ -68,11 +68,11 @@ namespace Lypo {
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         Lypo::EventBus& bus = Lypo::EventBus::getInstance();
-        // std::cout << "--------key_callback----------" << std::endl;
-        // std::cout   << "Key: "      << key << std::endl
-        //             << "Scancode: " << scancode << std::endl
-        //             << "Action: "   << action << std::endl
-        //             << "Mods: "     << mods << std::endl;
+        std::cout << "--------key_callback----------" << std::endl;
+        std::cout   << "Key: "      << key << std::endl
+                    << "Scancode: " << scancode << std::endl
+                    << "Action: "   << action << std::endl
+                    << "Mods: "     << mods << std::endl;
 
         switch (action)
         {
