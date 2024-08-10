@@ -21,16 +21,14 @@ namespace Lypo {
 
     bool GlfwInputManager::isKeyPressed(const int key) {
 
-        // key down, prev key down
-        //
         const bool pressed = isKeyDown(key) && !keyPressState[key];
-        keyPressState[key] = pressed;
+        keyPressState[key] = isKeyDown(key);
         return pressed;
     }
 
     bool GlfwInputManager::isKeyReleased(const int key) {
-       const bool released = isKeyUp(key) && !keyReleaseState[key];
-        keyReleaseState[key] = released;
+        const bool released = isKeyUp(key) && !keyReleaseState[key];
+        keyReleaseState[key] = isKeyUp(key);
         return released;
     }
 
