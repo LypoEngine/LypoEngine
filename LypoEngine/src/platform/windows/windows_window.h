@@ -12,6 +12,8 @@
 #include <string>
 #include <cstdint>
 
+#include "platform/glfw/inputs/glfw_input_manager.h"
+
 namespace platform 
 {
         /**
@@ -40,7 +42,8 @@ namespace platform
             GLFWwindow* window_ = nullptr;
             GLFWmonitor* monitor_ = nullptr;
             const GLFWvidmode* mode_ = nullptr;
-            
+            Lypo::GlfwInputManager inputManager_ = nullptr;
+
             struct WindowsData
             {
                 std::string title;

@@ -15,7 +15,7 @@ namespace Lypo {
         explicit RealNode(const int value)
             : value_(value) {}
 
-        void onEvent(Event* event) override { std::cout << value_ << std::endl; }
+        void onEvent(Event* event) override { }//std::cout << value_ << std::endl; }
     private:
         int value_;
     };

@@ -18,6 +18,9 @@ namespace Lypo {
         bool isKeyDown(const int key) const override;
         bool isKeyUp(const int key) const override;
 
+        bool isKeyPressed(int key) override;
+        bool isKeyReleased(int key) override;
+
         // Mouse inputs
         bool isMouseButtonDown(int button) const override;
         bool isMouseButtonUp(int button) const override;

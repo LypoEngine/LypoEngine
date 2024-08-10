@@ -19,6 +19,21 @@ namespace Lypo {
         return glfwGetKey(window_, key) == GLFW_RELEASE;
     }
 
+    bool GlfwInputManager::isKeyPressed(const int key) {
+
+        // key down, prev key down
+        //
+        const bool pressed = isKeyDown(key) && !keyPressState[key];
+        keyPressState[key] = pressed;
+        return pressed;
+    }
+
+    bool GlfwInputManager::isKeyReleased(const int key) {
+       const bool released = isKeyUp(key) && !keyReleaseState[key];
+        keyReleaseState[key] = released;
+        return released;
+    }
+
     // Mouse inputs
     bool GlfwInputManager::isMouseButtonDown(int button) const
     {
@@ -55,11 +70,11 @@ namespace Lypo {
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         Lypo::EventBus& bus = Lypo::EventBus::getInstance();
-        std::cout << "--------key_callback----------" << std::endl;
-        std::cout   << "Key: "      << key << std::endl
-                    << "Scancode: " << scancode << std::endl
-                    << "Action: "   << action << std::endl
-                    << "Mods: "     << mods << std::endl;
+        // std::cout << "--------key_callback----------" << std::endl;
+        // std::cout   << "Key: "      << key << std::endl
+        //             << "Scancode: " << scancode << std::endl
+        //             << "Action: "   << action << std::endl
+        //             << "Mods: "     << mods << std::endl;
 
         switch (action)
         {
