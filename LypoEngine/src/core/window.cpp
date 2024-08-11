@@ -4,10 +4,10 @@
 #include "core/window.h"
 
 #ifdef LYPO_PLATFORM_WINDOWS
-#include "platform/windows/windows_window.h"
+#include "platform/glfw/window/windows_window.h"
 #endif
 #ifdef LYPO_PLATFORM_LINUX
-#include "platform/linux/linux_window.h"
+#include "platform/glfw/window/linux_window.h"
 #endif
 
 namespace core

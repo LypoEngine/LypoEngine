@@ -4,6 +4,7 @@
 #pragma once
 
 #include "core/window.h"
+#include "platform/glfw/inputs/glfw_input_manager.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

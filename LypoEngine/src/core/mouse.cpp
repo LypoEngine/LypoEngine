@@ -4,10 +4,10 @@
 #include "core/mouse.h"
 
 #ifdef LYPO_PLATFORM_WINDOWS
-#include "platform/windows/windows_mouse.h"
+#include "platform/glfw/mouse/windows_mouse.h"
 #endif
 #ifdef LYPO_PLATFORM_LINUX
-#include "platform/linux/linux_mouse.h"
+#include "platform/glfw/mouse/linux_mouse.h"
 #endif
 
 namespace core

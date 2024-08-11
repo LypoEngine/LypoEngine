@@ -69,6 +69,9 @@ namespace platform
             return;
         }
 
+        Lypo::GlfwInputManager im = Lypo::GlfwInputManager(p_data_impl_->window);
+        glfwSetKeyCallback(p_data_impl_->window, im.key_callback);
+
         glfwSetWindowUserPointer(p_data_impl_->window, &p_data_impl_);
         setVSync(true);
     }
