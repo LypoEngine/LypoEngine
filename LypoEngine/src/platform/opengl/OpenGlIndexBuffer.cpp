@@ -7,6 +7,7 @@ namespace hive {
         glGenBuffers(1, &bufferID_);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferID_);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
+        count_ = count;
     }
 
     OpenGlIndexBuffer::~OpenGlIndexBuffer() {
