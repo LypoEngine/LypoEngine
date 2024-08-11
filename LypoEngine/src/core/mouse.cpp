@@ -3,24 +3,18 @@
 //
 #include "core/mouse.h"
 
-#ifdef LYPO_PLATFORM_WINDOWS
-#include "platform/glfw/mouse/windows_mouse.h"
-#endif
-#ifdef LYPO_PLATFORM_LINUX
-#include "platform/glfw/mouse/linux_mouse.h"
+#ifdef HIVE_PLATFORM_GLFW
+#include "platform/glfw/glfw_mouse.h"
 #endif
 
 namespace core
 {
-    std::unique_ptr<Mouse> Mouse::create(void* window, const MouseConfigurations& configuration)
+    std::unique_ptr<Mouse> Mouse::create(void* window, const MouseStates& configuration)
     {
-        #ifdef LYPO_PLATFORM_WINDOWS
-        return std::make_unique<platform::WindowsMouse>(window, configuration);
-        #endif
-        #ifdef LYPO_PLATFORM_LINUX
-        return std::make_unique<platform::LinuxMouse>(window, configuration);
+        #ifdef HIVE_PLATFORM_GLFW
+        return std::make_unique<platform::GlfwMouse>(window, configuration);
         #else
-            LYPO_CLIENT_ERROR("Unknown platform");
+            LYPO_CORE_ERROR("Unknown platform");
             return nullptr;
         #endif
     }

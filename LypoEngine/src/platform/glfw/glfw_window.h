@@ -4,6 +4,7 @@
 #pragma once
 
 #include "core/window.h"
+#include "platform/glfw/inputs/glfw_input_manager.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -15,14 +16,14 @@
 namespace platform 
 {
         /**
-         * @brief Linux concrete class of core::Window
+         * @brief Windows concrete class of core::Window
          */
-        class LinuxWindow : public core::Window
+        class GlfwWindow : public core::Window
         {
         public:
-            LinuxWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag = core::WindowFlags::DEFAULT) noexcept;
-            LinuxWindow(const core::WindowProperties& properties) noexcept;
-            virtual ~LinuxWindow() noexcept override;
+            GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag = core::WindowFlags::DEFAULT) noexcept;
+            GlfwWindow(const core::WindowProperties& properties) noexcept;
+            virtual ~GlfwWindow() noexcept override;
 
             void onUpdate() override;
 

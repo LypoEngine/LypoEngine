@@ -1,11 +1,11 @@
 //
 // Created by GuillaumeIsCoding on 7/26/2024.
 //
-#include "windows_window.h"
+#include "glfw_window.h"
 
 namespace platform
 {
-    struct WindowsWindow::DataImpl
+    struct GlfwWindow::DataImpl
     {
         DataImpl(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag, bool vSync, 
             GLFWwindow* window = nullptr, GLFWmonitor* monitor = nullptr, const GLFWvidmode* mode = nullptr)
@@ -19,20 +19,20 @@ namespace platform
         const GLFWvidmode* mode;
     };
 
-    WindowsWindow::WindowsWindow(const core::WindowProperties& properties) noexcept : WindowsWindow(properties.title, properties.width, properties.height, properties.flag) {}
+    GlfwWindow::GlfwWindow(const core::WindowProperties& properties) noexcept : GlfwWindow(properties.title, properties.width, properties.height, properties.flag) {}
 
-    WindowsWindow::WindowsWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag) noexcept 
-        : p_data_impl_(std::make_unique<WindowsWindow::DataImpl>(title, width, height, flag, false, nullptr, nullptr, nullptr))
+    GlfwWindow::GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag) noexcept 
+        : p_data_impl_(std::make_unique<GlfwWindow::DataImpl>(title, width, height, flag, false, nullptr, nullptr, nullptr))
     {
         initialize();
     }
         
-    WindowsWindow::~WindowsWindow() noexcept
+    GlfwWindow::~GlfwWindow() noexcept
     {
         shutdown();
     }
 
-    void WindowsWindow::initialize() noexcept
+    void GlfwWindow::initialize() noexcept
     {  
         if (!glfwInit())
         {
@@ -76,13 +76,13 @@ namespace platform
         setVSync(true);
     }
 
-    void WindowsWindow::shutdown() noexcept
+    void GlfwWindow::shutdown() noexcept
     { 
         glfwDestroyWindow(p_data_impl_->window);
         glfwTerminate();
     }
 
-    void WindowsWindow::onUpdate()
+    void GlfwWindow::onUpdate()
     {
         /* Swap front and back buffers */
         glfwSwapBuffers(p_data_impl_->window);
@@ -90,28 +90,28 @@ namespace platform
         glfwPollEvents();
     }
 
-    void WindowsWindow::setVSync(bool enabled)
+    void GlfwWindow::setVSync(bool enabled)
     {
         glfwSwapInterval(enabled ? 1 : 0);
         p_data_impl_->vSync = enabled;
     }
 
-    bool WindowsWindow::isVSync() const 
+    bool GlfwWindow::isVSync() const 
     {
         return p_data_impl_->vSync;
     }
 
-    uint32_t WindowsWindow::getWidth() const 
+    uint32_t GlfwWindow::getWidth() const 
     {
         return p_data_impl_->width;
     }
 
-    uint32_t WindowsWindow::getHeight() const 
+    uint32_t GlfwWindow::getHeight() const 
     {
         return p_data_impl_->height;
     }
 
-    void* WindowsWindow::getNativeWindow() const
+    void* GlfwWindow::getNativeWindow() const
     {
         return p_data_impl_->window;
     }

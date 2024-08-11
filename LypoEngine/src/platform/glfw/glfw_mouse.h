@@ -15,20 +15,20 @@ namespace platform
 	/**
 	 * Windows concrete class of core::Mouse
 	 */
-	class WindowsMouse : public core::Mouse
+	class GlfwMouse : public core::Mouse
 	{
 	public:
-		WindowsMouse(void* window, const core::MouseConfigurations& configuration = core::MouseConfigurations::DEFAULT) noexcept;
-		virtual ~WindowsMouse() noexcept override = default;
+		GlfwMouse(void* window, const core::MouseStates& configuration = core::MouseStates::DEFAULT) noexcept;
+		virtual ~GlfwMouse() noexcept override = default;
 
 		void setSensitivity(const float& sensitivity) override;
-		void setConfiguration(const core::MouseConfigurations& configuration) override;
+		void setConfiguration(const core::MouseStates& configuration) override;
 		
 		void getPosition(double& x_position, double& y_position) override;
 
 		bool isButtonPressed(const core::ButtonValue& value) const override;
 	private:
-		void initialize(void* window, const core::MouseConfigurations& configuration) noexcept;
+		void initialize(void* window, const core::MouseStates& configuration) noexcept;
 
 		static void positionCallback(GLFWwindow* window, double x_position, double y_position) noexcept;
 		static void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) noexcept;

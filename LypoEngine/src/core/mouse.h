@@ -12,7 +12,7 @@ namespace core
 	/**
 	 * @brief Possible mouse configuration
 	 */
-	enum class MouseConfigurations
+	enum class MouseStates
 	{
 		DEFAULT,
 		LOCK,
@@ -60,7 +60,7 @@ namespace core
 		 * 
 		 * @param configuration The configuration of the mouse 
 		 */
-		virtual void setConfiguration(const core::MouseConfigurations& configuration) = 0;
+		virtual void setConfiguration(const core::MouseStates& configuration) = 0;
 
 		/**
 		 * @brief Gets the x and y position of the mouse 
@@ -83,7 +83,7 @@ namespace core
 		/**
 		 * 
 		 */
-		static std::unique_ptr<Mouse> create(void* window, const MouseConfigurations& configuration = core::MouseConfigurations::DEFAULT);
+		static std::unique_ptr<Mouse> create(void* window, const MouseStates& configuration = core::MouseStates::DEFAULT);
 	protected:
 		struct DataImpl; 
 	};
