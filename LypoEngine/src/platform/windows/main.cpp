@@ -17,6 +17,7 @@
 #include "core/rendering/shader.h"
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
+#include "stb_image.h"
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
@@ -24,6 +25,11 @@ unsigned int createTextureShader();
 int main(void)
 {
     auto window = core::Window::create("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
+
+	int width, height;
+	auto data = stbi_load("../LypoEngine/assets/icon.png", &width, &height, nullptr, 0);
+	window->setWindowIcon(data, width, height);
+
     auto mouse = core::Mouse::create(window->getNativeWindow());
   
     //from learnopengl.com

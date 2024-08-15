@@ -115,4 +115,15 @@ namespace platform
     {
         return p_data_impl_->window;
     }
+
+    void GlfwWindow::setWindowIcon(unsigned char *data, int width, int height) const
+    {
+        GLFWimage images;
+        images.pixels = data;
+        images.width = width;
+        images.height = height;
+        auto window = static_cast<GLFWwindow *>(getNativeWindow());
+
+        glfwSetWindowIcon(window, 1, &images);
+    }
 }

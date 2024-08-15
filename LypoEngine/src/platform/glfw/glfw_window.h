@@ -34,9 +34,13 @@ namespace platform
             bool isVSync() const override; 
 
             void* getNativeWindow() const;
+            void setWindowIcon(unsigned char *data, int width, int height) const override;
         private:
             void initialize() noexcept;
             void shutdown() noexcept;
+
+        public:
+
         private:
             struct DataImpl;
             std::unique_ptr<DataImpl> p_data_impl_;
