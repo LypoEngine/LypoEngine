@@ -9,7 +9,7 @@
 #include "real_node_example.h"
 #include "event.h"
 
-namespace Lypo {
+namespace hive {
 
     class EventBus : public IEventHandler {
     public:

@@ -5,7 +5,7 @@
 
 
 
-namespace Lypo {
+namespace hive {
 
     class OpenGLVertexArray : public VertexArray
     {

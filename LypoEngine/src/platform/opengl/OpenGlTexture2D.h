@@ -6,7 +6,7 @@
 #include "core/rendering/Texture.h"
 #include "lypch.h"
 
-namespace Lypo {
+namespace hive {
 
     class OpenGlTexture2D : public Texture2D
     {

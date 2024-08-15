@@ -5,7 +5,7 @@
 #ifndef INPUTMANAGER_H
 #define INPUTMANAGER_H
 
-namespace Lypo {
+namespace hive {
     class InputManager {
     public:
         virtual ~InputManager() = default;

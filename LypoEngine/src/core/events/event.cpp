@@ -4,7 +4,7 @@
 
 #include "event.h"
 
-namespace Lypo {
+namespace hive {
 
     void IEventHandler::addChild(IEventHandler* child) {
         child->parent = this;

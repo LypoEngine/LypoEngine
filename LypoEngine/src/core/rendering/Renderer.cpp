@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 
-namespace Lypo {
+namespace hive {
 
 	RendererAPI Renderer::rendererAPI_ = RendererAPI::OpenGL;
 

@@ -3,7 +3,7 @@
 #include "lypch.h"
 #include "BufferUtils.h"
 
-namespace Lypo {
+namespace hive {
 	class VertexBuffer
 	{
 	public:

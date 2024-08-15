@@ -4,7 +4,7 @@
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
 
-namespace Lypo {
+namespace hive {
 
     class VertexArray
     {

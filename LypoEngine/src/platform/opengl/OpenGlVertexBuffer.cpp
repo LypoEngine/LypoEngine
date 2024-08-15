@@ -2,7 +2,7 @@
 #include "OpenGlVertexBuffer.hpp"
 #include <glad/glad.h>
 
-namespace Lypo {
+namespace hive {
 
     OpenGlVertexBuffer::OpenGlVertexBuffer(float *vertices, uint32_t size) {
         glGenBuffers(1, &bufferID_);

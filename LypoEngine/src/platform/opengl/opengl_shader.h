@@ -9,7 +9,7 @@
 #include "core/rendering/shader.h"
 
 
-namespace Lypo
+namespace hive
 {
     class OpenglShader final : public Shader
     {

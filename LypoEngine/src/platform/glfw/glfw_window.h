@@ -13,16 +13,16 @@
 #include <string>
 #include <cstdint>
 
-namespace platform 
+namespace hive 
 {
         /**
          * @brief Windows concrete class of core::Window
          */
-        class GlfwWindow : public core::Window
+        class GlfwWindow : public hive::Window
         {
         public:
-            GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag = core::WindowFlags::DEFAULT) noexcept;
-            GlfwWindow(const core::WindowProperties& properties) noexcept;
+            GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const hive::WindowFlags& flag = hive::WindowFlags::DEFAULT) noexcept;
+            GlfwWindow(const hive::WindowProperties& properties) noexcept;
             virtual ~GlfwWindow() noexcept override;
 
             void onUpdate() override;

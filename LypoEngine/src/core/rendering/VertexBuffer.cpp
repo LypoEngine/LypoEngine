@@ -3,7 +3,7 @@
 #include "VertexBuffer.hpp"
 #include "platform/opengl/OpenGlVertexBuffer.hpp"
 
-namespace Lypo {
+namespace hive {
 	VertexBuffer* VertexBuffer::create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::getApi())

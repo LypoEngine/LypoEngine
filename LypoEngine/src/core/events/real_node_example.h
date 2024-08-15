@@ -8,7 +8,7 @@
 
 #include "event.h"
 
-namespace Lypo {
+namespace hive {
     class RealNode : public IEventHandler
     {
     public:

@@ -9,7 +9,7 @@
 #include <glad/glad.h> // Needed for GLFW/glfw3.h
 #include <GLFW/glfw3.h>
 
-namespace Lypo {
+namespace hive {
     class GlfwInputManager : public InputManager {
     public:
         GlfwInputManager(GLFWwindow* window) : window_(window) {}

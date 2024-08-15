@@ -2,7 +2,7 @@
 
 #include "lypch.h"
 
-namespace Lypo {
+namespace hive {
 
         enum class ShaderDataType
         {

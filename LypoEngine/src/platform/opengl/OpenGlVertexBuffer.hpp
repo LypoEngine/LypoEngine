@@ -3,7 +3,7 @@
 #include "core/rendering/VertexBuffer.hpp"
 #include "core/rendering/BufferUtils.h"
 
-namespace Lypo {
+namespace hive {
     class OpenGlVertexBuffer : public VertexBuffer {
     public:
         OpenGlVertexBuffer(float *vertices, uint32_t size);
@@ -20,5 +20,4 @@ namespace Lypo {
         uint32_t bufferID_;
         BufferLayout layout_;
     };
-
 }

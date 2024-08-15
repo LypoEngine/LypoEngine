@@ -4,7 +4,7 @@
 #include "Renderer.hpp"
 #include "platform/opengl/OpenGlVertexArray.hpp"
 
-namespace Lypo {
+namespace hive {
 
     VertexArray *VertexArray::create() {
         switch (Renderer::getApi()) {

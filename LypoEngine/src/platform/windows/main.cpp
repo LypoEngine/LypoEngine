@@ -24,13 +24,13 @@ unsigned int createTextureShader();
 
 int main(void)
 {
-    auto window = core::Window::create("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
+    auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
 	int width, height;
 	auto data = stbi_load("../LypoEngine/assets/icon.png", &width, &height, nullptr, 0);
 	window->setWindowIcon(data, width, height);
 
-    auto mouse = core::Mouse::create(window->getNativeWindow());
+    auto mouse = hive::Mouse::create(window->getNativeWindow());
   
     //from learnopengl.com
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -43,17 +43,17 @@ int main(void)
     std::string fragmentPath = "../LypoEngine/assets/shaders/basicColorShader.frag.glsl";
     std::string vertexPath = "../LypoEngine/assets/shaders/basicColorShader.vert.glsl";
 
-    std::shared_ptr<Lypo::OpenglShader> colorShader = std::make_shared<Lypo::OpenglShader>(vertexPath, fragmentPath);
+    std::shared_ptr<hive::OpenglShader> colorShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
     fragmentPath = "../LypoEngine/assets/shaders/textureShader.frag.glsl";
     vertexPath = "../LypoEngine/assets/shaders/textureShader.vert.glsl";
 
-    std::shared_ptr<Lypo::OpenglShader> textureShader = std::make_shared<Lypo::OpenglShader>(vertexPath, fragmentPath);
+    std::shared_ptr<hive::OpenglShader> textureShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
-    std::shared_ptr<Lypo::VertexArray> vertexArray;
-    std::shared_ptr<Lypo::VertexArray> squareVA;
+    std::shared_ptr<hive::VertexArray> vertexArray;
+    std::shared_ptr<hive::VertexArray> squareVA;
 
-    vertexArray.reset(Lypo::VertexArray::create());
+    vertexArray.reset(hive::VertexArray::create());
 
     float vertices[3 * 7] = {
             -0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -61,21 +61,21 @@ int main(void)
             0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
     };
 
-    std::shared_ptr<Lypo::VertexBuffer> vertexBuffer = std::shared_ptr<Lypo::VertexBuffer>(Lypo::VertexBuffer::create(vertices, sizeof(vertices)));
-    Lypo::BufferLayout layout = {
-            { Lypo::ShaderDataType::Float3, "a_Position" },
-            { Lypo::ShaderDataType::Float4, "a_Color" }
+    std::shared_ptr<hive::VertexBuffer> vertexBuffer = std::shared_ptr<hive::VertexBuffer>(hive::VertexBuffer::create(vertices, sizeof(vertices)));
+    hive::BufferLayout layout = {
+            { hive::ShaderDataType::Float3, "a_Position" },
+            { hive::ShaderDataType::Float4, "a_Color" }
     };
     vertexBuffer->setLayout(layout);
 
     vertexArray->addVertexBuffer(vertexBuffer);
 
     uint32_t indices[3] = { 0, 1, 2 };
-    std::shared_ptr<Lypo::IndexBuffer> indexBuffer;
-    indexBuffer.reset(Lypo::IndexBuffer::create(indices, sizeof(indices)));
+    std::shared_ptr<hive::IndexBuffer> indexBuffer;
+    indexBuffer.reset(hive::IndexBuffer::create(indices, sizeof(indices)));
     vertexArray->setIndexBuffer(indexBuffer);
 
-    squareVA.reset(Lypo::VertexArray::create());
+    squareVA.reset(hive::VertexArray::create());
 
     float squareVertices[5 * 4] = {
             -0.75f, -0.75f, 0.0f,  0.0f, 0.0f,
@@ -84,19 +84,19 @@ int main(void)
             -0.75f,  0.75f, 0.0f, 0.0f, 1.0f
     };
 
-    std::shared_ptr<Lypo::VertexBuffer> squareVB = std::shared_ptr<Lypo::VertexBuffer>(Lypo::VertexBuffer::create(squareVertices, sizeof(squareVertices)));
+    std::shared_ptr<hive::VertexBuffer> squareVB = std::shared_ptr<hive::VertexBuffer>(hive::VertexBuffer::create(squareVertices, sizeof(squareVertices)));
     squareVB->setLayout({
-                                {Lypo::ShaderDataType::Float3, "a_Position"},
-                                { Lypo::ShaderDataType::Float2, "a_TexCoord" }
+                                {hive::ShaderDataType::Float3, "a_Position"},
+                                { hive::ShaderDataType::Float2, "a_TexCoord" }
                         });
     squareVA->addVertexBuffer(squareVB);
 
     uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-    std::shared_ptr<Lypo::IndexBuffer> squareIB;
-    squareIB.reset(Lypo::IndexBuffer::create(squareIndices, sizeof(squareIndices)));
+    std::shared_ptr<hive::IndexBuffer> squareIB;
+    squareIB.reset(hive::IndexBuffer::create(squareIndices, sizeof(squareIndices)));
     squareVA->setIndexBuffer(squareIB);
 
-    std::shared_ptr<Lypo::Texture2D> m_Texture = Lypo::Texture2D::Create("../LypoEngine/assets/textures/Checkerboard.png");
+    std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../LypoEngine/assets/textures/Checkerboard.png");
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
@@ -125,7 +125,7 @@ int main(void)
         mouse->getPosition(xpos, ypos);
         std::cout << "Mouse Position (" << xpos << ", " << ypos << ")" << std::endl;
 
-        if (mouse->isButtonPressed(core::ButtonValue::BUTTON_RIGHT))
+        if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
         {
             std::cout << " Right mouse button pressed" << std::endl;
         }

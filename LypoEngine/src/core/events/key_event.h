@@ -8,7 +8,7 @@
 
 #define KeyCode int
 
-namespace Lypo {
+namespace hive {
 
     class KeyEvent : public Event
     {

@@ -6,7 +6,7 @@
 #define WINDOWEVENT_H
 #include "Event.h"
 
-namespace Lypo {
+namespace hive {
 
     class WindowEvent : public Event
     {

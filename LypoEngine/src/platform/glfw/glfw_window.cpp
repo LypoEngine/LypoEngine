@@ -3,25 +3,25 @@
 //
 #include "glfw_window.h"
 
-namespace platform
+namespace hive
 {
     struct GlfwWindow::DataImpl
     {
-        DataImpl(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag, bool vSync, 
+        DataImpl(const std::string& title, const uint32_t& width, const uint32_t& height, const hive::WindowFlags& flag, bool vSync, 
             GLFWwindow* window = nullptr, GLFWmonitor* monitor = nullptr, const GLFWvidmode* mode = nullptr)
             : title(title), width(width), height(height), flag(flag), vSync(vSync), window(window), monitor(monitor), mode(mode) {}
         std::string title;
         uint32_t width, height;
         bool vSync;
-        core::WindowFlags flag;
+        hive::WindowFlags flag;
         GLFWwindow* window;
         GLFWmonitor* monitor;
         const GLFWvidmode* mode;
     };
 
-    GlfwWindow::GlfwWindow(const core::WindowProperties& properties) noexcept : GlfwWindow(properties.title, properties.width, properties.height, properties.flag) {}
+    GlfwWindow::GlfwWindow(const hive::WindowProperties& properties) noexcept : GlfwWindow(properties.title, properties.width, properties.height, properties.flag) {}
 
-    GlfwWindow::GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag) noexcept 
+    GlfwWindow::GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const hive::WindowFlags& flag) noexcept 
         : p_data_impl_(std::make_unique<GlfwWindow::DataImpl>(title, width, height, flag, false, nullptr, nullptr, nullptr))
     {
         initialize();
@@ -42,12 +42,12 @@ namespace platform
 
         switch (p_data_impl_->flag)
         {
-            case core::WindowFlags::FULLSCREEN:
+            case hive::WindowFlags::FULLSCREEN:
                 p_data_impl_->monitor = glfwGetPrimaryMonitor();
-            case core::WindowFlags::DEFAULT:
+            case hive::WindowFlags::DEFAULT:
                 p_data_impl_->window = glfwCreateWindow(p_data_impl_->width, p_data_impl_->height, p_data_impl_->title.c_str(), p_data_impl_->monitor, NULL);
                 break;
-            case core::WindowFlags::WINDOWED_FULLSCREEN:
+            case hive::WindowFlags::WINDOWED_FULLSCREEN:
                 p_data_impl_->window = glfwCreateWindow(p_data_impl_->width, p_data_impl_->height, p_data_impl_->title.c_str(), p_data_impl_->monitor, NULL);
                 p_data_impl_->monitor = glfwGetPrimaryMonitor();
                 p_data_impl_->mode = glfwGetVideoMode(p_data_impl_->monitor);
@@ -69,7 +69,7 @@ namespace platform
             return;
         }
 
-        Lypo::GlfwInputManager im = Lypo::GlfwInputManager(p_data_impl_->window);
+        hive::GlfwInputManager im = hive::GlfwInputManager(p_data_impl_->window);
         glfwSetKeyCallback(p_data_impl_->window, im.key_callback);
 
         glfwSetWindowUserPointer(p_data_impl_->window, &p_data_impl_);

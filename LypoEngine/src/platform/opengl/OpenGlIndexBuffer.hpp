@@ -2,7 +2,7 @@
 
 #include "core/rendering/IndexBuffer.hpp"
 
-namespace Lypo {
+namespace hive {
     class OpenGlIndexBuffer : public IndexBuffer {
     public:
         OpenGlIndexBuffer(uint32_t *indices, uint32_t count);

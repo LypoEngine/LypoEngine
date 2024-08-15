@@ -8,7 +8,7 @@
 
 #define MouseCode int
 
-namespace Lypo {
+namespace hive {
     class MouseMotionEvent : public Event
     {
     public:

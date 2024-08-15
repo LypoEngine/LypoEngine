@@ -7,7 +7,7 @@
 #include "platform/glfw/glfw_window.h"
 #endif
 
-namespace core
+namespace hive
 {
     std::unique_ptr<Window> Window::create(const WindowProperties& props) noexcept
     {
@@ -17,7 +17,7 @@ namespace core
     std::unique_ptr<Window> Window::create(const std::string& title, const uint32_t& width, const uint32_t& height, const WindowFlags& flag) noexcept
     {
         #ifdef HIVE_PLATFORM_GLFW
-        return std::make_unique<platform::GlfwWindow>(title, width, height, flag);
+        return std::make_unique<hive::GlfwWindow>(title, width, height, flag);
         #else
             LYPO_CORE_ERROR("Unknown platform");
             return nullptr;

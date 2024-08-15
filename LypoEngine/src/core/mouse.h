@@ -7,7 +7,7 @@
 
 #include "core/console_log.h"
 
-namespace core
+namespace hive
 {
 	/**
 	 * @brief Possible mouse configuration
@@ -60,7 +60,7 @@ namespace core
 		 * 
 		 * @param configuration The configuration of the mouse 
 		 */
-		virtual void setConfiguration(const core::MouseStates& configuration) = 0;
+		virtual void setConfiguration(const hive::MouseStates& configuration) = 0;
 
 		/**
 		 * @brief Gets the x and y position of the mouse 
@@ -78,12 +78,12 @@ namespace core
 		 * @return true If the button is pressed.
 		 * @return false If the button is not pressed
 		 */
-		virtual bool isButtonPressed(const core::ButtonValue& button_value) const = 0;
+		virtual bool isButtonPressed(const hive::ButtonValue& button_value) const = 0;
 
 		/**
 		 * 
 		 */
-		static std::unique_ptr<Mouse> create(void* window, const MouseStates& configuration = core::MouseStates::DEFAULT);
+		static std::unique_ptr<Mouse> create(void* window, const MouseStates& configuration = hive::MouseStates::DEFAULT);
 	protected:
 		struct DataImpl; 
 	};

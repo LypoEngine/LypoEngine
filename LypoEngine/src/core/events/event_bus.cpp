@@ -4,7 +4,7 @@
 
 #include "event_bus.h"
 
-namespace Lypo {
+namespace hive {
 
 
     EventBus& EventBus::getInstance() {

@@ -3,7 +3,7 @@
 #include "IndexBuffer.hpp"
 #include "platform/opengl/OpenGlIndexBuffer.hpp"
 
-namespace Lypo {
+namespace hive {
     IndexBuffer* IndexBuffer::create(uint32_t * indices, uint32_t count)
     {
         switch (Renderer::getApi())

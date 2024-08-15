@@ -9,7 +9,7 @@
 
 #include "core/console_log.h"
 
-namespace core
+namespace hive
 {
     /**
      * @brief Flags for window creation

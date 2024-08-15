@@ -5,7 +5,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-namespace Lypo
+namespace hive
 {
     enum ShaderType
     {

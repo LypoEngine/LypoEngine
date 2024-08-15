@@ -10,25 +10,25 @@
 
 #include <iostream>
 
-namespace platform
+namespace hive
 {
 	/**
 	 * Windows concrete class of core::Mouse
 	 */
-	class GlfwMouse : public core::Mouse
+	class GlfwMouse : public hive::Mouse
 	{
 	public:
-		GlfwMouse(void* window, const core::MouseStates& configuration = core::MouseStates::DEFAULT) noexcept;
+		GlfwMouse(void* window, const hive::MouseStates& configuration = hive::MouseStates::DEFAULT) noexcept;
 		virtual ~GlfwMouse() noexcept override = default;
 
 		void setSensitivity(const float& sensitivity) override;
-		void setConfiguration(const core::MouseStates& configuration) override;
+		void setConfiguration(const hive::MouseStates& configuration) override;
 		
 		void getPosition(double& x_position, double& y_position) override;
 
-		bool isButtonPressed(const core::ButtonValue& value) const override;
+		bool isButtonPressed(const hive::ButtonValue& value) const override;
 	private:
-		void initialize(void* window, const core::MouseStates& configuration) noexcept;
+		void initialize(void* window, const hive::MouseStates& configuration) noexcept;
 
 		static void positionCallback(GLFWwindow* window, double x_position, double y_position) noexcept;
 		static void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) noexcept;

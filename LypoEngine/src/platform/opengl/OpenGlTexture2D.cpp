@@ -12,7 +12,7 @@
 #include <filesystem>
 
 
-namespace Lypo{
+namespace hive{
     OpenGlTexture2D::OpenGlTexture2D(const std::string& path)
             : path_(path)
     {

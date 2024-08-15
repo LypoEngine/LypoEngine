@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Lypo {
+namespace hive {
 
 	enum class RendererAPI
 	{

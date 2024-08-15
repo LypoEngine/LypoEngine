@@ -3,22 +3,22 @@
 #include <glad/glad.h>
 #include "GLCheck.h"
 
-namespace Lypo {
+namespace hive {
     static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
     {
         switch (type)
         {
-            case Lypo::ShaderDataType::Float:    return GL_FLOAT;
-            case Lypo::ShaderDataType::Float2:   return GL_FLOAT;
-            case Lypo::ShaderDataType::Float3:   return GL_FLOAT;
-            case Lypo::ShaderDataType::Float4:   return GL_FLOAT;
-            case Lypo::ShaderDataType::Mat3:     return GL_FLOAT;
-            case Lypo::ShaderDataType::Mat4:     return GL_FLOAT;
-            case Lypo::ShaderDataType::Int:      return GL_INT;
-            case Lypo::ShaderDataType::Int2:     return GL_INT;
-            case Lypo::ShaderDataType::Int3:     return GL_INT;
-            case Lypo::ShaderDataType::Int4:     return GL_INT;
-            case Lypo::ShaderDataType::Bool:     return GL_BOOL;
+            case hive::ShaderDataType::Float:    return GL_FLOAT;
+            case hive::ShaderDataType::Float2:   return GL_FLOAT;
+            case hive::ShaderDataType::Float3:   return GL_FLOAT;
+            case hive::ShaderDataType::Float4:   return GL_FLOAT;
+            case hive::ShaderDataType::Mat3:     return GL_FLOAT;
+            case hive::ShaderDataType::Mat4:     return GL_FLOAT;
+            case hive::ShaderDataType::Int:      return GL_INT;
+            case hive::ShaderDataType::Int2:     return GL_INT;
+            case hive::ShaderDataType::Int3:     return GL_INT;
+            case hive::ShaderDataType::Int4:     return GL_INT;
+            case hive::ShaderDataType::Bool:     return GL_BOOL;
         }
 
         //TODO: log error: Unknown ShaderDataType

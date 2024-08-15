@@ -8,7 +8,7 @@
 
 int main(void)
 {
-    auto window = core::Window::create("Linux Window", 600, 700, core::WindowFlags::DEFAULT);
+    auto window = hive::Window::create("Linux Window", 600, 700, hive::WindowFlags::DEFAULT);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))

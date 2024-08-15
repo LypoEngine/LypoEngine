@@ -12,7 +12,7 @@
 
 #include "glad/glad.h"
 
-namespace Lypo
+namespace hive
 {
     std::string readFile(const std::string &path)
     {

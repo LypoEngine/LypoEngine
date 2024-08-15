@@ -2,7 +2,7 @@
 #include "OpenGlIndexBuffer.hpp"
 #include "glad/glad.h"
 
-namespace Lypo {
+namespace hive {
     OpenGlIndexBuffer::OpenGlIndexBuffer(uint32_t *indices, uint32_t count) {
         glGenBuffers(1, &bufferID_);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferID_);
