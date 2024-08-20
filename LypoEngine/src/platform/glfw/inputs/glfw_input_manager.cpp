@@ -7,7 +7,7 @@
 #include "core/events/event_bus.h"
 #include "core/events/key_event.h"
 
-namespace Lypo {
+namespace hive {
 
     bool GlfwInputManager::isKeyDown(const int key) const
     {
@@ -67,7 +67,7 @@ namespace Lypo {
 
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        Lypo::EventBus& bus = Lypo::EventBus::getInstance();
+        hive::EventBus& bus = hive::EventBus::getInstance();
         std::cout << "--------key_callback----------" << std::endl;
         std::cout   << "Key: "      << key << std::endl
                     << "Scancode: " << scancode << std::endl
@@ -78,19 +78,19 @@ namespace Lypo {
         {
             case GLFW_PRESS:
             {
-                Lypo::KeyPressedEvent event(key, false);
+                hive::KeyPressedEvent event(key, false);
                 bus.dispatch(&event);
                 break;
             }
             case GLFW_RELEASE:
             {
-                Lypo::KeyReleasedEvent event(key);
+                hive::KeyReleasedEvent event(key);
                 bus.dispatch(&event);
                 break;
             }
             case GLFW_REPEAT:
             {
-                Lypo::KeyPressedEvent event(key, true);
+                hive::KeyPressedEvent event(key, true);
                 bus.dispatch(&event);
                 break;
             }
