@@ -36,4 +36,4 @@ endif ()
 
 add_executable(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
 
-target_link_libraries(lypo_engine glfw glad stb_image)
+target_link_libraries(lypo_engine glfw glad enTT glm stb_image)
