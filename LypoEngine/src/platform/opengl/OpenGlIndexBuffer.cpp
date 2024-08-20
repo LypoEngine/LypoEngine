@@ -3,11 +3,11 @@
 #include "glad/glad.h"
 
 namespace hive {
-    OpenGlIndexBuffer::OpenGlIndexBuffer(uint32_t *indices, uint32_t count) {
+    OpenGlIndexBuffer::OpenGlIndexBuffer(uint32_t *indices, uint32_t count)
+        :count_(count) {
         glGenBuffers(1, &bufferID_);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferID_);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
-        count_ = count;
     }
 
     OpenGlIndexBuffer::~OpenGlIndexBuffer() {

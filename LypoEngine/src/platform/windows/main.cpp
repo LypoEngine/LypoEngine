@@ -123,7 +123,7 @@ int main(void)
         /* Poll for and process events */
         double xpos, ypos;
         mouse->getPosition(xpos, ypos);
-        std::cout << "Mouse Position (" << xpos << ", " << ypos << ")" << std::endl;
+        // std::cout << "Mouse Position (" << xpos << ", " << ypos << ")" << std::endl;
 
         if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
         {
