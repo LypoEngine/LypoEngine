@@ -75,10 +75,10 @@ namespace platform
             /* Swap front and back buffers */
             glfwSwapBuffers(window_);
 
-            if(inputManager_.isKeyPressed(67))
-                std::cout << "key 67 pressed" << std::endl;
-            if(inputManager_.isKeyReleased(67))
-                std::cout << "key 67 released" << std::endl;
+            // if(inputManager_.isKeyPressed(67))
+            //     std::cout << "key 67 pressed" << std::endl;
+            // if(inputManager_.isKeyReleased(67))
+            //     std::cout << "key 67 released" << std::endl;
             glfwPollEvents();
         }
 
