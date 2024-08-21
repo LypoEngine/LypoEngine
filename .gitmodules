@@ -1,9 +1,9 @@
-[submodule "LypoEngine/dep/glfw"]
-	path = LypoEngine/dep/glfw
+[submodule "Hive/dep/glfw"]
+	path = Hive/dep/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "LypoEngine/dep/entt"]
-	path = LypoEngine/dep/entt
+[submodule "Hive/dep/entt"]
+	path = Hive/dep/entt
 	url = https://github.com/skypjack/entt.git
-[submodule "LypoEngine/dep/glm"]
-	path = LypoEngine/dep/glm
+[submodule "Hive/dep/glm"]
+	path = Hive/dep/glm
 	url = https://github.com/g-truc/glm.git
