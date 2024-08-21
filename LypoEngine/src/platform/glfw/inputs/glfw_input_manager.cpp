@@ -68,12 +68,6 @@ namespace hive {
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         hive::EventBus& bus = hive::EventBus::getInstance();
-        std::cout << "--------key_callback----------" << std::endl;
-        std::cout   << "Key: "      << key << std::endl
-                    << "Scancode: " << scancode << std::endl
-                    << "Action: "   << action << std::endl
-                    << "Mods: "     << mods << std::endl;
-
         switch (action)
         {
             case GLFW_PRESS:
