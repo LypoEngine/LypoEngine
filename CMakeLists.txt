@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_CXX_STANDARD 20)
 
-project(lypo_engine)
+project(Hive)
 
 include_directories(LypoEngine/src)
 
@@ -42,6 +42,6 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
-add_executable(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
+add_executable(Hive ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
 
-target_link_libraries(lypo_engine glfw glad EnTT glm stb_image)
+target_link_libraries(Hive glfw glad EnTT glm stb_image)
