@@ -57,3 +57,24 @@ jobs:
         with:
           name: build-static-windows
           path: ./build-full-static/lypo_engine.exe
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build submodules
+        run: git submodule update --init
+
+      - name: Configure macOS static library
+        run: cmake -B build-macos-static -D CMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+
+      - name: Build macOS static library
+        run: cmake --build build-macos-static --parallel
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-static-macos
+          path: ./build-macos-static/lypo_engine
