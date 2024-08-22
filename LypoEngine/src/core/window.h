@@ -57,6 +57,8 @@ namespace hive
          */
         virtual void onUpdate() = 0;
 
+        virtual bool shouldClose() = 0;
+
         virtual uint32_t getWidth() const = 0;
 
         virtual uint32_t getHeight() const = 0;

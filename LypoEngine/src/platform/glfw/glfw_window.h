@@ -26,6 +26,7 @@ namespace hive
             virtual ~GlfwWindow() noexcept override;
 
             void onUpdate() override;
+            bool shouldClose() override;
 
             uint32_t getWidth() const override;
             uint32_t getHeight() const override;

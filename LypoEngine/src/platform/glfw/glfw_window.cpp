@@ -2,6 +2,8 @@
 // Created by GuillaumeIsCoding on 7/26/2024.
 //
 #include "glfw_window.h"
+#include "core/events/event_bus.h"
+#include "core/events/window_event.h"
 
 namespace hive
 {
@@ -77,7 +79,7 @@ namespace hive
     }
 
     void GlfwWindow::shutdown() noexcept
-    { 
+    {
         glfwDestroyWindow(p_data_impl_->window);
         glfwTerminate();
     }
@@ -125,5 +127,9 @@ namespace hive
         auto window = static_cast<GLFWwindow *>(getNativeWindow());
 
         glfwSetWindowIcon(window, 1, &images);
+    }
+
+    bool GlfwWindow::shouldClose() {
+        return glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(getNativeWindow()));
     }
 }
