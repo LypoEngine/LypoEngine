@@ -54,3 +54,5 @@ endif ()
 add_executable(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${PCH_SOURCE})
 
 target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
+
+target_precompile_headers(hive_engine PRIVATE ${PCH_HEADER})
