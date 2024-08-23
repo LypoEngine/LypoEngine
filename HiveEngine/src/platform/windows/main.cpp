@@ -27,7 +27,7 @@ int main(void)
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
 	int width, height;
-	auto data = stbi_load("../LypoEngine/assets/icon.png", &width, &height, nullptr, 0);
+	auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
 	window->setWindowIcon(data, width, height);
 
     auto mouse = hive::Mouse::create(window->getNativeWindow());

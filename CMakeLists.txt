@@ -3,9 +3,18 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(hive_engine)
 
+# PCH
+set(PCH_HEADER
+    HiveEngine/src/lypch.h)
+
+set(PCH_SOURCE
+    HiveEngine/src/lypch.cpp
+    ${PCH_HEADER}
+    )
+
 include_directories(HiveEngine/src)
 
-#Dependencies include
+# Dependencies include
 add_subdirectory(HiveEngine/dep/glfw)
 include_directories(HiveEngine/dep/glfw/include)
 
@@ -22,6 +31,8 @@ include_directories(HiveEngine/dep/stb_image)
 add_library(stb_image STATIC HiveEngine/dep/stb_image/stb_image.cpp)
 
 file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h)
+
+
 
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 
@@ -40,6 +51,6 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
-add_executable(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
+add_executable(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${PCH_SOURCE})
 
 target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
