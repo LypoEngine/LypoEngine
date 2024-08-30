@@ -1,22 +1,35 @@
 //
 // Created by lapor on 7/19/2024.
 //
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
-#include "core/window.h"
+#include <core/logging/Logger.h>
+#include <core/logging/ConsoleLogger.h>
+#include "core/logging/FileLogger.h"
 
-int main(void)
-{
-    auto window = hive::Window::create("Linux Window", 600, 700, hive::WindowFlags::DEFAULT);
+#include <memory>
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
-    {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-        /* Poll for and process events */
-        window->onUpdate();
+
+template<typename T>
+using SRef = std::shared_ptr<T>;
+
+template<typename T>
+using URef = std::unique_ptr<T>;
+
+
+void initEngine(URef<hive::Logger> &logger) {
+    logger = std::make_unique<hive::ConsoleLogger>(hive::LogLevel::Warning);
+
+    // logger = std::make_unique<hive::FileLogger>("log.txt", hive::LogLevel::Info);
+    if(!logger->isCorrect()) {
+        //ERROR HERE
     }
-    return 0;
+}
+
+
+int main() {
+    URef<hive::Logger> logger;
+    initEngine(logger);
+
+    logger->log("Hello World", hive::LogLevel::Error);
+
 }
