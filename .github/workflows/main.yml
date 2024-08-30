@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-static-linux
-          path: ./build-full-static/lypo_engine
+          path: ./build-full-static/hive_engine
 
         # Ajouter apres les runs de tests
 
@@ -56,4 +56,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-static-windows
-          path: ./build-full-static/lypo_engine.exe
+          path: ./build-full-static/hive_engine.exe

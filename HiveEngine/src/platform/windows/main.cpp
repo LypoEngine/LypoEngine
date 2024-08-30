@@ -27,7 +27,7 @@ int main(void)
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
 	int width, height;
-	auto data = stbi_load("../LypoEngine/assets/icon.png", &width, &height, nullptr, 0);
+	auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
 	window->setWindowIcon(data, width, height);
 
     auto mouse = hive::Mouse::create(window->getNativeWindow());
@@ -40,13 +40,13 @@ int main(void)
     /*unsigned int shaderProgram = createBasicShader();
     unsigned int textureShader = createTextureShader();*/
 
-    std::string fragmentPath = "../LypoEngine/assets/shaders/basicColorShader.frag.glsl";
-    std::string vertexPath = "../LypoEngine/assets/shaders/basicColorShader.vert.glsl";
+    std::string fragmentPath = "../HiveEngine/assets/shaders/basicColorShader.frag.glsl";
+    std::string vertexPath = "../HiveEngine/assets/shaders/basicColorShader.vert.glsl";
 
     std::shared_ptr<hive::OpenglShader> colorShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
-    fragmentPath = "../LypoEngine/assets/shaders/textureShader.frag.glsl";
-    vertexPath = "../LypoEngine/assets/shaders/textureShader.vert.glsl";
+    fragmentPath = "../HiveEngine/assets/shaders/textureShader.frag.glsl";
+    vertexPath = "../HiveEngine/assets/shaders/textureShader.vert.glsl";
 
     std::shared_ptr<hive::OpenglShader> textureShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
@@ -96,7 +96,7 @@ int main(void)
     squareIB.reset(hive::IndexBuffer::create(squareIndices, sizeof(squareIndices)));
     squareVA->setIndexBuffer(squareIB);
 
-    std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../LypoEngine/assets/textures/Checkerboard.png");
+    std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../HiveEngine/assets/textures/Checkerboard.png");
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);

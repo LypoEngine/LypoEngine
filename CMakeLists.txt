@@ -1,47 +1,58 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_CXX_STANDARD 20)
 
-project(lypo_engine)
+project(hive_engine)
 
-include_directories(LypoEngine/src)
+# PCH
+set(PCH_HEADER
+    HiveEngine/src/lypch.h)
 
-#Dependencies include
-add_subdirectory(LypoEngine/dep/glfw)
-include_directories(LypoEngine/dep/glfw/include)
+set(PCH_SOURCE
+    HiveEngine/src/lypch.cpp
+    ${PCH_HEADER}
+    )
 
-add_subdirectory(LypoEngine/dep/glad)
-include_directories(LypoEngine/dep/glad/include)
+include_directories(HiveEngine/src)
 
-add_subdirectory(LypoEngine/dep/glm)
-include_directories(LypoEngine/dep/glm/glm)
+# Dependencies include
+add_subdirectory(HiveEngine/dep/glfw)
+include_directories(HiveEngine/dep/glfw/include)
 
-add_subdirectory(LypoEngine/dep/entt)
-include_directories(LypoEngine/dep/entt/single_include)
+add_subdirectory(HiveEngine/dep/glad)
+include_directories(HiveEngine/dep/glad/include)
 
-include_directories(LypoEngine/dep/stb_image)
-add_library(stb_image STATIC LypoEngine/dep/stb_image/stb_image.cpp)
+add_subdirectory(HiveEngine/dep/glm)
+include_directories(HiveEngine/dep/glm/glm)
 
-file(GLOB_RECURSE CORE_SOURCES LypoEngine/src/core/*.cpp LypoEngine/src/core/*.h)
+add_subdirectory(HiveEngine/dep/entt)
+include_directories(HiveEngine/dep/entt/single_include)
+
+include_directories(HiveEngine/dep/stb_image)
+add_library(stb_image STATIC HiveEngine/dep/stb_image/stb_image.cpp)
+
+file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h)
+
+
 
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    file(GLOB_RECURSE PLATFORM_SOURCES LypoEngine/src/platform/windows/*.cpp LypoEngine/src/platform/windows/*.h)
-    file(GLOB_RECURSE RENDERING_SOURCES LypoEngine/src/platform/opengl/*.cpp LypoEngine/src/platform/opengl/*.h)
-    file(GLOB_RECURSE INPUT_SOURCES LypoEngine/src/platform/glfw/*.cpp LypoEngine/src/platform/glfw/*.h)
-    add_compile_definitions(LYPO_PLATFORM_WINDOWS)
+    file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/windows/*.cpp HiveEngine/src/platform/windows/*.h)
+    file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
+    file(GLOB_RECURSE INPUT_SOURCES HiveEngine/src/platform/glfw/*.cpp HiveEngine/src/platform/glfw/*.h)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    file(GLOB_RECURSE PLATFORM_SOURCES LypoEngine/src/platform/linux/*.cpp LypoEngine/src/platform/linux/*.h)
-    file(GLOB_RECURSE RENDERING_SOURCES LypoEngine/src/platform/opengl/*.cpp LypoEngine/src/platform/opengl/*.h)
-    file(GLOB_RECURSE INPUT_SOURCES LypoEngine/src/platform/glfw/*.cpp LypoEngine/src/platform/glfw/*.h)
-    add_compile_definitions(LYPO_PLATFORM_LINUX)
+    file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/linux/*.cpp HiveEngine/src/platform/linux/*.h)
+    file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
+    file(GLOB_RECURSE INPUT_SOURCES HiveEngine/src/platform/glfw/*.cpp HiveEngine/src/platform/glfw/*.h)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    file(GLOB_RECURSE PLATFORM_SOURCES LypoEngine/src/platform/macos/*.cpp LypoEngine/src/platform/macos/*.h)
-    file(GLOB_RECURSE RENDERING_SOURCES LypoEngine/src/platform/opengl/*.cpp LypoEngine/src/platform/opengl/*.h)
+    file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/macos/*.cpp HiveEngine/src/platform/macos/*.h)
+    file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
 else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
-add_executable(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES})
+add_executable(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${PCH_SOURCE})
 
-target_link_libraries(lypo_engine glfw glad EnTT glm stb_image)
+target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
+
+target_precompile_headers(hive_engine PRIVATE ${PCH_HEADER})
