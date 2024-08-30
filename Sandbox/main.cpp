@@ -1,4 +1,7 @@
 //
+// Created by samuel on 8/30/24.
+//
+//
 // Created by lapor on 7/19/2024.
 //
 #include <glad/glad.h>
@@ -31,7 +34,7 @@ int main(void)
 	window->setWindowIcon(data, width, height);
 
     auto mouse = hive::Mouse::create(window->getNativeWindow());
-  
+
     //from learnopengl.com
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
