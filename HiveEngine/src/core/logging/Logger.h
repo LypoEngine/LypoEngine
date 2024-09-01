@@ -11,9 +11,6 @@ namespace hive {
         Debug, Info, Warning, Error, Fatal
     };
 
-    enum class LogOutputType {
-        Console, File
-    };
 
 
     class Logger {
