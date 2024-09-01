@@ -8,8 +8,8 @@ namespace hive {
 
     VertexArray *VertexArray::create() {
         switch (Renderer::getApi()) {
-            case RendererAPI::None:    LYPO_CORE_ERROR("RendererAPI::None is not supported") return nullptr;
-            case RendererAPI::OpenGL:
+            case RenderAPI::API::None:    LYPO_CORE_ERROR("RendererAPI::None is not supported") return nullptr;
+            case RenderAPI::API::OpenGL:
                 return new OpenGLVertexArray();
         }
 
