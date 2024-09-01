@@ -1,4 +1,7 @@
 //
+// Created by samuel on 8/30/24.
+//
+//
 // Created by lapor on 7/19/2024.
 //
 #include <glad/glad.h>
@@ -15,6 +18,10 @@
 #include "core/rendering/BufferUtils.h"
 #include "core/rendering/Texture.h"
 #include "core/rendering/shader.h"
+#include "core/rendering/Renderer.hpp"
+
+#include "core/events/event_bus.h"
+
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
@@ -31,7 +38,7 @@ int main(void)
 	window->setWindowIcon(data, width, height);
 
     auto mouse = hive::Mouse::create(window->getNativeWindow());
-  
+
     //from learnopengl.com
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -104,18 +111,15 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+
+        hive::Renderer::beginScene();
 
         m_Texture->bind();
-        textureShader->bind();
-        squareVA->bind();
-        glDrawElements(GL_TRIANGLES, squareVA->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+        hive::Renderer::submitGeometryToDraw(squareVA, textureShader);
 
+        hive::Renderer::submitGeometryToDraw(vertexArray, colorShader);
 
-        colorShader->bind();
-        vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+        hive::Renderer::endScene();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(window->getNativeWindow()));

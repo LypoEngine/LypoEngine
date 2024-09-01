@@ -52,8 +52,12 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
-add_executable(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${PCH_SOURCE})
-
+add_library(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${PCH_SOURCE})
 target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
-
 target_precompile_headers(hive_engine PRIVATE ${PCH_HEADER})
+
+
+######################################################################
+project(sandbox)
+add_executable(sandbox Sandbox/main.cpp)
+target_link_libraries(sandbox hive_engine)
