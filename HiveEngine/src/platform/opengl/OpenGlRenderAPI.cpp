@@ -1,0 +1,24 @@
+//
+// Created by mathe on 14/08/2024.
+//
+
+#include "OpenGlRenderAPI.h"
+#include <glad/glad.h>
+
+namespace hive {
+    void OpenGlRenderAPI::setClearColor(float r, float g, float b, float a)
+    {
+        glClearColor(r, g, b, a);
+    }
+
+    void OpenGlRenderAPI::clear()
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //TODO: add flags for specifing what buffer to clear
+    }
+
+    void OpenGlRenderAPI::drawVertexArray(const std::shared_ptr<VertexArray>& vertexArray)
+    {
+        glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+    }
+}
