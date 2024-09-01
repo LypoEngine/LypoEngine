@@ -21,23 +21,5 @@ namespace hive {
         return true;
     }
 
-    void ConsoleLogger::setLogLevelColor(LogLevel level) {
-        switch(level) {
-            case LogLevel::Debug:
-                setColor(173, 216, 230);
-                break;
-            case LogLevel::Info:
-                setColor(144, 238, 144);
-                break;
-            case LogLevel::Warning:
-                setColor(255, 255, 224);
-                break;
-            case LogLevel::Error:
-                setColor(240, 128, 128);
-                break;
-            case LogLevel::Fatal:
-                setColor(255, 99, 71);
-                break;
-        }
-    }
+
 } // hive

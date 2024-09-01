@@ -17,10 +17,9 @@ namespace hive {
         void log(const std::string &msg, LogLevel level) override;
         bool isCorrect() override;
     private:
-        static void setLogLevelColor(LogLevel level);
 
         //Those function is platform specific, it's implementation should be located in platform_console_logger.cpp
-        static void setColor(int R, int G, int B);
+        static void setLogLevelColor(LogLevel level);
         static void resetColor();
 
     public:
