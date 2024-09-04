@@ -22,6 +22,8 @@
 
 #include "core/events/event_bus.h"
 
+#include "scene/objects.h"
+
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
@@ -107,6 +109,18 @@ int main(void)
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
+
+    /* ECS PART INIT */
+
+    hive::Scene scene = hive::Scene();
+
+    hive::create_object(scene, 10, 50, "object", "test 1");
+    hive::create_object(scene, 10, 25, "object", "test 2");
+    hive::create_object(scene, 10, 2, "test 3");
+
+    /* ECS PART TEST */
+
+    scene.update();
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
