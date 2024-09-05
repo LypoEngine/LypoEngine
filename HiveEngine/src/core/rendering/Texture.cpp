@@ -10,8 +10,8 @@ namespace hive {
     {
         switch (Renderer::getApi())
         {
-            case RendererAPI::None:    LYPO_CORE_ERROR("RendererAPI::None is not supported") return nullptr;
-            case RendererAPI::OpenGL:  return std::make_shared<OpenGlTexture2D>(path);
+            case RenderAPI::API::None:    LYPO_CORE_ERROR("RendererAPI::None is not supported") return nullptr;
+            case RenderAPI::API::OpenGL:  return std::make_shared<OpenGlTexture2D>(path);
         }
 
         LYPO_CORE_ERROR("This API is not supported");

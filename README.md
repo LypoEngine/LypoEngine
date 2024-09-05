@@ -1,8 +1,8 @@
-# LypoEngine
-Lypo Engine – Multi-platform 2D and 3D game engine
+# Hive
+Hive Engine – Multi-platform 2D and 3D game engine
 
 ## Building from source
-`git clone https://github.com/LypoEngine/LypoEngine.git`
+`git clone https://github.com/HiveEngine/HiveEngine.git`
 
 `cd LypoEngine`
 

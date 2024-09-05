@@ -1,4 +1,7 @@
 //
+// Created by samuel on 8/30/24.
+//
+//
 // Created by lapor on 7/19/2024.
 //
 #include <glad/glad.h>
@@ -15,6 +18,10 @@
 #include "core/rendering/BufferUtils.h"
 #include "core/rendering/Texture.h"
 #include "core/rendering/shader.h"
+#include "core/rendering/Renderer.hpp"
+
+#include "core/events/event_bus.h"
+
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
@@ -27,11 +34,11 @@ int main(void)
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
 	int width, height;
-	auto data = stbi_load("../LypoEngine/assets/icon.png", &width, &height, nullptr, 0);
+	auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
 	window->setWindowIcon(data, width, height);
 
     auto mouse = hive::Mouse::create(window->getNativeWindow());
-  
+
     //from learnopengl.com
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -40,13 +47,13 @@ int main(void)
     /*unsigned int shaderProgram = createBasicShader();
     unsigned int textureShader = createTextureShader();*/
 
-    std::string fragmentPath = "../LypoEngine/assets/shaders/basicColorShader.frag.glsl";
-    std::string vertexPath = "../LypoEngine/assets/shaders/basicColorShader.vert.glsl";
+    std::string fragmentPath = "../HiveEngine/assets/shaders/basicColorShader.frag.glsl";
+    std::string vertexPath = "../HiveEngine/assets/shaders/basicColorShader.vert.glsl";
 
     std::shared_ptr<hive::OpenglShader> colorShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
-    fragmentPath = "../LypoEngine/assets/shaders/textureShader.frag.glsl";
-    vertexPath = "../LypoEngine/assets/shaders/textureShader.vert.glsl";
+    fragmentPath = "../HiveEngine/assets/shaders/textureShader.frag.glsl";
+    vertexPath = "../HiveEngine/assets/shaders/textureShader.vert.glsl";
 
     std::shared_ptr<hive::OpenglShader> textureShader = std::make_shared<hive::OpenglShader>(vertexPath, fragmentPath);
 
@@ -96,7 +103,7 @@ int main(void)
     squareIB.reset(hive::IndexBuffer::create(squareIndices, sizeof(squareIndices)));
     squareVA->setIndexBuffer(squareIB);
 
-    std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../LypoEngine/assets/textures/Checkerboard.png");
+    std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../HiveEngine/assets/textures/Checkerboard.png");
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
@@ -104,18 +111,15 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+
+        hive::Renderer::beginScene();
 
         m_Texture->bind();
-        textureShader->bind();
-        squareVA->bind();
-        glDrawElements(GL_TRIANGLES, squareVA->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+        hive::Renderer::submitGeometryToDraw(squareVA, textureShader);
 
+        hive::Renderer::submitGeometryToDraw(vertexArray, colorShader);
 
-        colorShader->bind();
-        vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, nullptr);
+        hive::Renderer::endScene();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(window->getNativeWindow()));
