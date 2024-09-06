@@ -8,33 +8,19 @@ namespace hive
 
     Scene::~Scene() {}
 
-    Entity Scene::create_entity(const std::string& tag)
+    Entity Scene::create_entity(const std::string& name)
     {
         Entity entity(registry_.create(), this);
-        entity.add_component<TagComponent>(tag);
+        entity.add_component<TagComponent>(name);
         return entity;
     }
 
     void Scene::print_tag()
     {
-
-        for ( 
-            auto [entity, nameTag] :
-            registry_.view<TagComponent>().each())
-            {
-                std::cout << "tag : " << nameTag.tag << std::endl;
-            }
     }
 
     void Scene::print_system()
     {
-        for (
-            auto [entity, pos, type] :
-            registry_.view<PositionComponent, TypeComponent>().each()
-        )
-        {
-            std::cout << "Position (x, y) : (" << pos.x << ", " << pos.y << ") & Type : " << type.type << std::endl;
-        }
     }
 
     void Scene::update()
