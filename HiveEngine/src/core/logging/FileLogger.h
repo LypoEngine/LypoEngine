@@ -15,9 +15,11 @@ namespace hive {
         explicit FileLogger(const std::string &filePath, const LogLevel logLevel);
 
         ~FileLogger() override;
-        void log(const std::string &msg, LogLevel level) override;
 
         bool isCorrect() override;
+
+    protected:
+        void logImpl(const std::string &msg, LogLevel level) override;
 
     private:
         std::ofstream m_fileStream;

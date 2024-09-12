@@ -5,10 +5,8 @@
 #include "opengl_shader.h"
 
 #include <fstream>
-#include <iostream>
 #include <sstream>
 
-#include "core/console_log.h"
 
 #include "glad/glad.h"
 
@@ -21,7 +19,7 @@ namespace hive
 
         if (!shader_file.is_open())
         {
-            LYPO_CORE_ERROR("Unable to open shader file at path: " + path);
+            Logger::log("Unable to open shader file at path: " + path, LogLevel::Error);
             return "";
         }
 
@@ -82,7 +80,7 @@ namespace hive
         glGetShaderInfoLog(shader_id, 1024, nullptr, infoLog);
 
         std::string str(infoLog);
-        LYPO_CORE_ERROR("Shader error log: " + str);
+        Logger::log("Shader error log: " + str, LogLevel::Error);
     }
 
 
@@ -94,21 +92,21 @@ namespace hive
         const unsigned int v_shader_id = compile_shader(vertexCode, Vertex);
         if (!get_shader_compile_status(v_shader_id))
         {
-            LYPO_CORE_ERROR("Error unable to compile vertex shader at path: " + vertex_path);
+            Logger::log("Error unable to compile vertex shader at path: " + vertex_path, LogLevel::Error);
             print_shader_error(v_shader_id);
         }
 
         const unsigned int f_shader_id = compile_shader(fragmentCode, Fragment);
         if (!get_shader_compile_status(f_shader_id))
         {
-            LYPO_CORE_ERROR("Error unable to compile fragment shader at path: " + fragment_path);
+            Logger::log("Error unable to compile fragment shader at path: " + fragment_path, LogLevel::Error);
             print_shader_error(f_shader_id);
         }
 
         const unsigned int id = compile_program(v_shader_id, f_shader_id);
 
         if (id == 0)
-            LYPO_CORE_ERROR("Error unable to link the program");
+            Logger::log("Error unable to link the program", LogLevel::Error);
 
         glDeleteShader(v_shader_id);
         glDeleteShader(f_shader_id);

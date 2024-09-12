@@ -2,7 +2,7 @@
 // Created by samuel on 7/24/24.
 //
 
-#ifdef HYVE_PLATFORM_LINUX
+#ifdef HIVE_PLATFORM_LINUX
 #include <cassert>
 
 #include <core/logging/ConsoleLogger.h>

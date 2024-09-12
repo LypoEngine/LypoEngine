@@ -18,7 +18,7 @@ namespace hive {
         m_fileStream.close();
     }
 
-    void FileLogger::log(const std::string &msg, LogLevel level) {
+    void FileLogger::logImpl(const std::string &msg, LogLevel level) {
         m_fileStream << msg << std::endl;
     }
 

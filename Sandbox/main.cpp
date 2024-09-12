@@ -25,12 +25,17 @@
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
+#include "core/logging/ConsoleLogger.h"
+#include "core/logging/Logger.h"
+#include "core/logging/LoggingFactory.h"
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
 
 int main(void)
 {
+	hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
+
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
 	int width, height;
@@ -121,8 +126,6 @@ int main(void)
 
         hive::Renderer::endScene();
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(window->getNativeWindow()));
 
         /* Poll for and process events */
         double xpos, ypos;

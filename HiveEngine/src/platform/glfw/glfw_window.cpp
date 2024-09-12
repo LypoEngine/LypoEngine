@@ -36,7 +36,7 @@ namespace hive
     {  
         if (!glfwInit())
         {
-            LYPO_CORE_ERROR("Unable to initialize glfw");
+            Logger::log("Unable to initialize glfw", LogLevel::Error);
             return ;
         }
 
@@ -57,7 +57,7 @@ namespace hive
 
         if (!p_data_impl_->window)
         {
-            LYPO_CORE_ERROR("Unable to initialize the window");
+            Logger::log("Unable to initialize the window", LogLevel::Error);
             return;
         }
 
@@ -65,7 +65,7 @@ namespace hive
 
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
         {
-            LYPO_CORE_ERROR("Unable to load glad");
+            Logger::log("Unable to load glad", LogLevel::Error);
             return;
         }
 

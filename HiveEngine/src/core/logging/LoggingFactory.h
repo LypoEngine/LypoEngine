@@ -17,7 +17,7 @@ namespace hive {
 
     class LoggingFactory {
     public:
-        static SRef<Logger> createLogger(LogOutputType type, LogLevel logLevel);
+        static Logger* createLogger(LogOutputType type, LogLevel logLevel);
     };
 
 }
