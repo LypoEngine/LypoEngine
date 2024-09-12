@@ -56,4 +56,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-static-windows
-          path: ./build-full-static/sandbox.exe
+          path: ./build-win32-static-x64\Debug\sandbox.exe
