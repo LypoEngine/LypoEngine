@@ -25,6 +25,7 @@
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
+#include "scene/components.h"
 
 #include "scene/scene.h"
 #include "scene/entity.h"
@@ -112,8 +113,11 @@ int main(void)
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
 
-	hive::Scene scene = {};
 	hive::Entity entity = {};
+	std::string test = "test";
+	auto& tag = entity.addComponent<hive::TagComponent>();
+	tag.Tag = test;
+	std::cout << entity.getComponent<hive::TagComponent>().Tag << std::endl;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
