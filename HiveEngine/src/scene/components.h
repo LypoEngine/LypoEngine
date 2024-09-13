@@ -4,21 +4,13 @@
 #pragma once
 
 #include <string>
-
 #include "core/uuid.h"
-#include "core/rendering/Texture.h"
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include<glm/gtx/quaternion.hpp>
 
 namespace hive
 {
     struct IDComponent
     {
-        Uuid ID;
+        UUID ID;
 
         IDComponent() = default;
         IDComponent(const IDComponent&) = default;
@@ -30,7 +22,7 @@ namespace hive
 
         TagComponent() = default;
         TagComponent(const TagComponent&) = default;
-        TagComponent(const std::string& tag) : Tag(tag) {}
+        explicit TagComponent(const std::string& tag) : Tag(tag) {}
     };
 
     struct ScriptComponent

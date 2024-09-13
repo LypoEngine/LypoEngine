@@ -26,6 +26,10 @@
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
 
+#include "scene/scene.h"
+#include "scene/entity.h"
+
+
 unsigned int createBasicShader();
 unsigned int createTextureShader();
 
@@ -107,6 +111,9 @@ int main(void)
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
+
+	hive::Scene scene = {};
+	hive::Entity entity = {};
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))

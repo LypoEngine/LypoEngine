@@ -4,43 +4,43 @@
 #pragma once
 
 #include <entt/entt.hpp>
-#include "scene.h"
 
-namespace hive 
+namespace hive
 {
+    class Scene;
+    class UUID;
+
     class Entity
     {
     public:
-        Entity(entt::entity handler, Scene* scene) : handler_(handler), scene_(scene) {}
+        Entity() = default;
+        Entity(const Entity&) = default;
+        Entity(entt::entity entity_handler, Scene* scene) : entity_handler_(entity_handler), scene_(scene) {}
 
-        entt::entity get_handle() { return handler_;}
+        template<typename T, typename ...Args>
+        T& addComponent(Args&&... args);
 
-        template<typename T, typename... Args> 
-        T& add_component(Args&&... args)
-        {
-            return scene_->registry_.emplace<T>(handler_, std::forward<Args>(args)...);
-        }
-        
-        template<typename T>
-        T& get_component()
-        {
-            return scene_->registry_.get<T>(handler_);
-        }
+        template<typename T, typename ...Args>
+        T& replaceComponent(Args&& ...args);
 
         template<typename T>
-        void remove_component()
-        {
-            return scene_->registry_.remove<T>(handler_);
-        }
+        T& getComponent();
 
         template<typename T>
-        bool has_component()
-        {
-            return scene_->registry_.all_of<T>(handler_);
-        }
+        [[nodiscard]] bool hasComponent() const;
 
+        [[nodiscard]] UUID getUUID();
+
+        [[nodiscard]] const std::string& getTag();
+
+        operator bool() const;
+        operator entt::entity();
+        operator uint32_t() const;
+
+        bool operator ==(const Entity& other);
+        bool operator !=(const Entity& other);
     private:
-        entt::entity handler_ = entt::null;
-        hive::Scene* scene_ = nullptr;
+        entt::entity entity_handler_ = {entt::null};
+        Scene* scene_ = nullptr;
     };
 }

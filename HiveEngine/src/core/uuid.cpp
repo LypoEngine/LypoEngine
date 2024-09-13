@@ -1,3 +1,4 @@
+#include "lypch.h"
 #include "uuid.h"
 
 #include <random>
@@ -9,7 +10,7 @@ namespace hive
     static std::mt19937_64 engine(random_device());
     static std::uniform_int_distribution<uint64_t> uniform_distribution;
 
-    Uuid::Uuid() : uuid_(uniform_distribution(engine)) {}
+    UUID::UUID() : uuid_(uniform_distribution(engine)) {}
 
-    Uuid::Uuid(const uint64_t& uuid) : uuid_(uuid) {}
+    UUID::UUID(uint64_t uuid) : uuid_(uuid) {}
 }

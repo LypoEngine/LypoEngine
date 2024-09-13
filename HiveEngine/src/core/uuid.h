@@ -3,19 +3,14 @@
 //
 #pragma once
 
-#include <stdlib.h>
-#include <stdint.h>
-
-// From TheCherno
-
 namespace hive
 {
-    class Uuid
+    class UUID
     {
     public:
-        Uuid();
-        Uuid(const uint64_t& uuid);
-        Uuid(const Uuid&) = default;
+        UUID();
+        UUID(uint64_t uuid);
+        UUID(const UUID&) = default;
 
         operator uint64_t() const { return uuid_; }
     private:
@@ -28,12 +23,11 @@ namespace std
     template<typename T> struct hash;
     
     template<>
-    struct hash<hive::Uuid>
+    struct hash<hive::UUID>
     {
-        size_t operator()(const hive::Uuid& uuid) const
+        std::size_t operator()(const hive::UUID& uuid) const
         {
             return (uint64_t)uuid;
         }
     };
-    
 }

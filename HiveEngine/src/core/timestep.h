@@ -3,8 +3,6 @@
 //
 #pragma once
 
-// From TheCherno
-
 namespace hive
 {
     class TimeStep
