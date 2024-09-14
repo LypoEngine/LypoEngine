@@ -22,6 +22,8 @@ namespace hive
         void destroyEntity(Entity entity);
 
         friend std::ostream& operator<<(std::ostream& os, const Scene& scene);
+
+        entt::registry& getRegistry();
     private:
         friend class Entity;
         entt::registry registry_;

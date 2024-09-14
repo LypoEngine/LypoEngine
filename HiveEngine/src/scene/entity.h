@@ -62,7 +62,7 @@ namespace hive
         operator uint32_t() const {return static_cast<uint32_t>(handler_);}
 
         friend std::ostream& operator<<(std::ostream& os, const Entity& entity) {
-            entt::registry& reg = entity.scene_->registry_;
+            entt::registry& reg = entity.scene_->getRegistry();
 
             for(auto&& curr : reg.storage()) {
                if (auto& storage = curr.second; storage.contains(entity.handler_)) {

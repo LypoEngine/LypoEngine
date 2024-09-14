@@ -21,6 +21,10 @@ namespace hive {
         registry_.destroy(entity);
     }
 
+    entt::registry& Scene::getRegistry() {
+        return registry_;
+    }
+
     std::ostream& operator<<(std::ostream &os, const Scene& scene) {
         os << "Scene:";
         for(auto& entity : scene.entities_) {
