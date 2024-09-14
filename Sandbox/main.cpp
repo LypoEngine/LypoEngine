@@ -113,12 +113,6 @@ int main(void)
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
 
-	hive::Entity entity = {};
-	std::string test = "test";
-	auto& tag = entity.addComponent<hive::TagComponent>();
-	tag.Tag = test;
-	std::cout << entity.getComponent<hive::TagComponent>().Tag << std::endl;
-
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
