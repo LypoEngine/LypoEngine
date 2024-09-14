@@ -1,12 +1,25 @@
 #include "scene.h"
 #include "entity.h"
+#include "core/uuid.h"
 
 namespace hive {
     Entity Scene::createEntity(const std::string &name) {
+        return createEntityWithID(UUID(), name);
+    }
+
+    Entity Scene::createEntityWithID(UUID id, const std::string &name) {
         Entity entity = {registry_.create(), this};
+        entity.addComponent<IDComponent>(id);
         auto& tag = entity.addComponent<TagComponent>();
-        tag.Tag = name.empty() ? "Entity" : name;
+        tag.Tag = name.empty() ? "Default Entity" : name;
+        entities_[id] = entity;
         return entity;
     }
 
+    std::ostream& operator<<(std::ostream &os, const Scene& scene) {
+        for(auto& entity : scene.entities_) {
+            os << entity.second << "\n";
+        }
+        return os;
+    }
 }

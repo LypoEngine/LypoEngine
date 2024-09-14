@@ -117,9 +117,12 @@ int main(void)
 	hive::Scene scene = {};
 	hive::Entity entity = scene.createEntity("Test");
 	hive::Entity entity_no_name = scene.createEntity();
-	std::cout << entity.getComponent<hive::TagComponent>().Tag << std::endl;
-	std::cout << entity_no_name.getComponent<hive::TagComponent>().Tag << std::endl;
-
+	std::cout << entity << std::endl;
+	std::cout << entity_no_name << std::endl;
+	auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
+	tag.Tag = "Replace";
+	std::cout << entity_no_name << std::endl;
+	std::cout << scene << std::endl;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
