@@ -15,9 +15,11 @@ namespace hive
     public:
         Entity() = default;
         Entity(entt::entity entity, Scene* scene) : handler_(entity), scene_(scene) {}
+        Entity(const Entity& other) = default;
 
         template<typename T, typename... Args>
         T& addComponent(Args&&...args) {
+            assert(!hasComponent<T>());
             return scene_->registry_.emplace<T>(handler_, std::forward<Args>(args)...);
         }
 
@@ -28,15 +30,15 @@ namespace hive
 
         template<typename T>
         void removeComponent() {
-            if(hasComponent<T>()) {
-                scene_->registry_.remove<T>(handler_);
-            }
+            assert(hasComponent<T>());
+            scene_->registry_.remove<T>(handler_);
         }
 
         template<typename T>
         T& getComponent() {
             assert(hasComponent<T>());
             return scene_->registry_.get<T>(handler_);
+
         }
 
         template<typename T>
