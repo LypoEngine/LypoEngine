@@ -3,10 +3,20 @@
 //
 #pragma once
 #include <entt/entt.hpp>
-
-#include <unordered_map>
+#include "components.h"
 
 namespace hive
 {
+    class Entity;
 
+    class Scene {
+    public:
+        Scene() = default;
+        ~Scene() = default;
+
+        Entity createEntity(const std::string& name = std::string());
+    private:
+        friend class Entity;
+        entt::registry registry_;
+    };
 }
