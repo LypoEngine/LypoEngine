@@ -51,6 +51,7 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
+
 add_library(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${SCENE_SOURCE} ${PCH_SOURCE})
 target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
 target_precompile_headers(hive_engine PRIVATE ${PCH_HEADER})

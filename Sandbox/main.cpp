@@ -25,11 +25,11 @@
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
 #include "stb_image.h"
+
 #include "scene/components.h"
 #include "scene/entity.h"
 
 #include "scene/scene.h"
-
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
@@ -113,7 +113,8 @@ int main(void)
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
 
-    // TEST ECS
+
+  // TEST ECS
 	hive::Scene scene = {};
 	hive::Entity entity = scene.createEntity("Test");
 	hive::Entity entity_no_name = scene.createEntity();
@@ -125,6 +126,7 @@ int main(void)
 	std::cout << scene << std::endl;
 	scene.destroyEntity(entity_no_name);
 	std::cout << scene << std::endl;
+  
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
