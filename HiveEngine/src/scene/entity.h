@@ -57,6 +57,10 @@ namespace hive
             return !(*this == other);
         }
 
+        operator entt::entity() const {return handler_;}
+        operator bool() const {return handler_ != entt::null;}
+        operator uint32_t() const {return static_cast<uint32_t>(handler_);}
+
         friend std::ostream& operator<<(std::ostream& os, const Entity& entity) {
             entt::registry& reg = entity.scene_->registry_;
 

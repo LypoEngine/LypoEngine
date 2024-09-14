@@ -19,6 +19,7 @@ namespace hive
 
         Entity createEntity(const std::string& name = std::string());
         Entity createEntityWithID(UUID id, const std::string& name = std::string());
+        void destroyEntity(Entity entity);
 
         friend std::ostream& operator<<(std::ostream& os, const Scene& scene);
     private:

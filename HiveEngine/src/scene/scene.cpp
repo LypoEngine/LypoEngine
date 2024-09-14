@@ -16,9 +16,15 @@ namespace hive {
         return entity;
     }
 
+    void Scene::destroyEntity(Entity entity) {
+        entities_.erase(entity.getID());
+        registry_.destroy(entity);
+    }
+
     std::ostream& operator<<(std::ostream &os, const Scene& scene) {
+        os << "Scene:";
         for(auto& entity : scene.entities_) {
-            os << entity.second << "\n";
+            os << "\n" << entity.second;
         }
         return os;
     }
