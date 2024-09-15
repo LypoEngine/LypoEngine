@@ -21,12 +21,9 @@ namespace hive
         Entity createEntityWithID(UUID id, const std::string& name = std::string());
         void destroyEntity(Entity entity);
 
-        friend std::ostream& operator<<(std::ostream& os, const Scene& scene);
-
         entt::registry& getRegistry();
     private:
         friend class Entity;
         entt::registry registry_;
-        std::unordered_map<UUID, Entity> entities_;
     };
 }
