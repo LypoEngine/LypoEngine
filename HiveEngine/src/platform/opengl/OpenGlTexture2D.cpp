@@ -25,7 +25,7 @@ namespace hive{
 
 
         if(!data){
-            LYPO_CORE_ERROR("Failed to load image!");
+            Logger::log("Failed to load image!", LogLevel::Error);
         }
 
         width_ = width;

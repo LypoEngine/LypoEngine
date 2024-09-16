@@ -2,30 +2,43 @@
 // Created by samuel on 7/24/24.
 //
 
-#include <core/console_log.h>
-#include <iostream>
+#ifdef HIVE_PLATFORM_LINUX
+#include <cassert>
 
-#define CONSOLE_RED "\033[31m"
-#define CONSOLE_WHITE "\033[0m"
-#define CONSOLE_YELLOW "\033[33m"
+#include <core/logging/ConsoleLogger.h>
 
-ConsoleLogger::ConsoleLogger(const std::string &prefix): _prefix(prefix)
-{
+namespace hive {
+
+
+    void setColor(int R, int G, int B) {
+        assert(R >= 0 && G >= 0 && B >= 0);
+        assert(R <= 255 && G <= 255 && B <= 255);
+        std::cout << "\033[38;2;" << R << ";" << G << ";" << B << "m";
+    }
+
+    void ConsoleLogger::setLogLevelColor(LogLevel level) {
+        switch(level) {
+            case LogLevel::Debug:
+                setColor(173, 216, 230);
+                break;
+            case LogLevel::Info:
+                setColor(144, 238, 144);
+                break;
+            case LogLevel::Warning:
+                setColor(255, 255, 224);
+                break;
+            case LogLevel::Error:
+                setColor(240, 128, 128);
+                break;
+            case LogLevel::Fatal:
+                setColor(255, 99, 71);
+                break;
+        }
+    }
+
+    void ConsoleLogger::resetColor() {
+        std::cout << "\033[0m";
+    }
 
 }
-
-void ConsoleLogger::info(const std::string &msg) const {
-    std::cout << CONSOLE_WHITE << "[" << _prefix << " - INFO] " << msg << std::endl;
-}
-
-
-
-void ConsoleLogger::warn(const std::string &msg) const {
-    std::cout << CONSOLE_YELLOW << "[" << _prefix << " - WARNING] " << msg << std::endl;
-}
-
-void ConsoleLogger::error(const std::string &msg) const {
-    std::cout << CONSOLE_RED << "[" << _prefix << " - ERROR] " << msg << std::endl;
-}
-
-
+#endif
