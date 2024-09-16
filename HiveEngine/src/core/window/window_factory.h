@@ -12,7 +12,7 @@ namespace hive {
 namespace hive {
     class WindowFactory {
     public:
-        static Window* Create(std::string &title, int width, int height, WindowConfiguration configuration);
+        static Window* Create(const std::string &title, int width, int height, WindowConfiguration configuration);
         static Window* Create(const char* title, int width, int height, WindowConfiguration configuration);
     };
 }

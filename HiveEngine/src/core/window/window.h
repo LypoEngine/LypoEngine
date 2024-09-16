@@ -14,16 +14,12 @@ namespace hive
     public:
         virtual ~Window() = default;
 
+        [[nodiscard]] virtual int getHeight() const = 0;
+        [[nodiscard]] virtual void* getNativeWindow() const = 0;
+        [[nodiscard]] virtual int getWidth() const = 0;
         virtual void onUpdate() const = 0;
-        virtual bool shouldClose() const = 0;
-
-
-        virtual int getWidth() const = 0;
-        virtual int getHeight() const = 0;
-
-        virtual void* getNativeWindow() const = 0;
-
         virtual void setIcon(unsigned char* data, int width, int height) const = 0;
+        [[nodiscard]] virtual bool shouldClose() const = 0;
         virtual void updateConfiguration(WindowConfiguration configuration) = 0;
     };
 }
