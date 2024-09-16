@@ -27,6 +27,7 @@ namespace hive
     }
 
     GlfwWindow::~GlfwWindow() {
+        Logger::log("Destructor GLFWWindow", LogLevel::Debug);
         glfwDestroyWindow(m_Window);
         glfwTerminate();
     }

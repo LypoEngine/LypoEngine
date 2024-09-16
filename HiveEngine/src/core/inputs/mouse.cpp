@@ -1,7 +1,7 @@
 //
 // Created by GuillaumeIsCoding on 7/28/2024.
 //
-#include "core/mouse.h"
+#include "core/inputs/mouse.h"
 
 #ifdef HIVE_PLATFORM_GLFW
 #include "platform/glfw/glfw_mouse.h"

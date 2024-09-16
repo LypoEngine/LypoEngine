@@ -58,11 +58,6 @@ namespace hive {
         return ypos;
     }
 
-    // Poll events
-    void GlfwInputManager::update() const
-    {
-        glfwPollEvents();
-    }
 
 
     void GlfwInputManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

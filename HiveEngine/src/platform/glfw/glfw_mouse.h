@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "core/mouse.h"
+#include "core/inputs/mouse.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
