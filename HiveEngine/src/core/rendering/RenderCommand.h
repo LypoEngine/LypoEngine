@@ -4,15 +4,16 @@
 
 #include "lypch.h"
 #include "RenderAPI.h"
+#include <glm/glm.hpp>
 
 namespace hive
 {
     class RenderCommand
     {
         public:
-            inline static void setClearColor(float r, float g, float b, float a)
+            inline static void setClearColor(glm::vec4 color)
             {
-                renderAPI_->setClearColor(r, g, b, a);
+                renderAPI_->setClearColor(color);
             }
 
             inline static void clear()

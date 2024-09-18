@@ -6,9 +6,9 @@
 #include <glad/glad.h>
 
 namespace hive {
-    void OpenGlRenderAPI::setClearColor(float r, float g, float b, float a)
+    void OpenGlRenderAPI::setClearColor(glm::vec4 color)
     {
-        glClearColor(r, g, b, a);
+        glClearColor(color.r, color.g, color.b, color.a);
     }
 
     void OpenGlRenderAPI::clear()

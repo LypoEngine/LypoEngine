@@ -34,12 +34,14 @@ file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h
 
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 
+
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/windows/*.cpp HiveEngine/src/platform/windows/*.h)
     file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
     file(GLOB_RECURSE INPUT_SOURCES HiveEngine/src/platform/glfw/*.cpp HiveEngine/src/platform/glfw/*.h)
     file(GLOB_RECURSE SCENE_SOURCE HiveEngine/src/scene/*.cpp HiveEngine/src/scene/*.h)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    add_compile_definitions(HIVE_PLATFORM_LINUX)
     file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/linux/*.cpp HiveEngine/src/platform/linux/*.h)
     file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
     file(GLOB_RECURSE INPUT_SOURCES HiveEngine/src/platform/glfw/*.cpp HiveEngine/src/platform/glfw/*.h)

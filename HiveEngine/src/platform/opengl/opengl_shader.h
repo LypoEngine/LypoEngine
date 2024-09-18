@@ -20,9 +20,13 @@ namespace hive
 
         void unbind() const override;
 
+        void uploadUniformMat4(const std::string& name, const glm::mat4& matrix) const override;
+
         void uploadUniformInt(const std::string& name, int value);
 
         void uploadUniformFloat(const std::string& name, float value);
+
+
 
     private:
         unsigned int program_id = 0;

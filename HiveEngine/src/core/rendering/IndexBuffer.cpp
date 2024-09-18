@@ -1,6 +1,7 @@
 
 #include "Renderer.hpp"
 #include "IndexBuffer.hpp"
+
 #include "platform/opengl/OpenGlIndexBuffer.hpp"
 
 namespace hive {
@@ -8,11 +9,11 @@ namespace hive {
     {
         switch (Renderer::getApi())
         {
-            case RenderAPI::API::None:   LYPO_CORE_ERROR("RendererAPI::None is not supported") return nullptr;
+            case RenderAPI::API::None:   Logger::log("RendererAPI::None is not supported", LogLevel::Warning); return nullptr;
             case RenderAPI::API::OpenGL:  return new OpenGlIndexBuffer(indices, count);
         }
 
-        LYPO_CORE_ERROR("This API is not supported");
+        Logger::log("This API is not supported", LogLevel::Error);
         return nullptr;
     }
 }

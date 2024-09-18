@@ -5,7 +5,6 @@
 
 #include <memory>
 
-#include "core/console_log.h"
 
 namespace hive
 {

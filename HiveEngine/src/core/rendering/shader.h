@@ -5,6 +5,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <glm/glm.hpp>
+
 namespace hive
 {
     enum ShaderType
@@ -20,6 +22,8 @@ namespace hive
         virtual void bind() const = 0;
 
         virtual void unbind() const = 0;
+
+        virtual void uploadUniformMat4(const std::string& name, const glm::mat4& matrix) const = 0;
     };
 }
 
