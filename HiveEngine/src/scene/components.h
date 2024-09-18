@@ -43,13 +43,4 @@ namespace hive
             return os << "Tag : " << Tag << " ";
         }
     };
-
-    struct ScriptComponent
-    {
-        std::string ClassName;
-
-        ScriptComponent() = default;
-        ScriptComponent(const ScriptComponent&) = default;
-    };
-    
 }
