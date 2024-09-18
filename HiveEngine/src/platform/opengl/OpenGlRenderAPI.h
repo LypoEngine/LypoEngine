@@ -9,7 +9,7 @@ namespace hive {
     class OpenGlRenderAPI : public RenderAPI
     {
         public:
-            virtual void setClearColor(float r, float g, float b, float a) override;
+            virtual void setClearColor(glm::vec4) override;
             virtual void clear() override;
             void drawVertexArray(const std::shared_ptr<VertexArray>& vertexArray) override;
     };

@@ -36,6 +36,7 @@ file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h
 
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 
+
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/windows/*.cpp HiveEngine/src/platform/windows/*.h)
     file(GLOB_RECURSE RENDERING_SOURCES HiveEngine/src/platform/opengl/*.cpp HiveEngine/src/platform/opengl/*.h)
