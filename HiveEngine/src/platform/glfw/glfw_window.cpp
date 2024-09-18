@@ -14,11 +14,15 @@ namespace hive
     GlfwWindow::GlfwWindow(const std::string &title, const int width, const int height, WindowConfiguration configuration): m_Width(width), m_Height(height), m_Window(nullptr) {
         if(!glfwInit()) {
             //TODO LOG message
+            Logger::log("Unable to initialize glfw", LogLevel::Error);
         }
 
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
         if(m_Window == nullptr) {
-            //TODO Log message
+            Logger::log("Unable to create a glfw window", LogLevel::Error);
         }
 
         glfwMakeContextCurrent(m_Window);
