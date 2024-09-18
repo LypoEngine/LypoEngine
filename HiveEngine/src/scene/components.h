@@ -13,7 +13,7 @@ namespace hive
         virtual std::ostream& print(std::ostream& os) = 0;
     };
 
-    struct IDComponent : public IComponent
+    struct IDComponent : IComponent
     {
         UUID ID;
 
@@ -21,15 +21,14 @@ namespace hive
         IDComponent(const IDComponent&) = default;
         IDComponent(const UUID& uuid) : ID(uuid) {};
 
-        ~IDComponent() = default;
+        ~IDComponent() override = default;
 
         std::ostream& print(std::ostream& os) override {
             return os << "UUID : " << ID << " ";
         }
-
     };
 
-    struct TagComponent : public IComponent
+    struct TagComponent : IComponent
     {
         std::string Tag = "";
 
@@ -37,7 +36,7 @@ namespace hive
         TagComponent(const TagComponent&) = default;
         TagComponent(const std::string& tag) : Tag(tag) {}
 
-        ~TagComponent() = default;
+        ~TagComponent() override = default;
 
         std::ostream& print(std::ostream& os) override {
             return os << "Tag : " << Tag << " ";
