@@ -46,31 +46,15 @@ namespace hive
             return scene_->registry_.all_of<T>(handler_);
         }
 
-        UUID getID() {return getComponent<IDComponent>().ID;}
-        const std::string& getTag() {return getComponent<TagComponent>().Tag;}
+        bool operator==(const Entity& other) const;
 
-        bool operator==(const Entity& other) {
-            return handler_ == other.handler_ && scene_ == other.scene_;
-        }
+        bool operator!=(const Entity& other) const;
 
-        bool operator!=(const Entity& other) {
-            return !(*this == other);
-        }
+        operator entt::entity() const;
+        operator bool() const;
+        operator uint32_t() const;
 
-        operator entt::entity() const {return handler_;}
-        operator bool() const {return handler_ != entt::null;}
-        operator uint32_t() const {return static_cast<uint32_t>(handler_);}
-
-        friend std::ostream& operator<<(std::ostream& os, const Entity& entity) {
-            entt::registry& reg = entity.scene_->getRegistry();
-
-            for(auto&& curr : reg.storage()) {
-               if (auto& storage = curr.second; storage.contains(entity.handler_)) {
-                   reinterpret_cast<IComponent*>(storage.value(entity.handler_))->print(os);
-               }
-            }
-            return os;
-        }
+        friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
     private:
         entt::entity handler_ = {entt::null};
         Scene* scene_ = nullptr;
