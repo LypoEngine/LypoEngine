@@ -5,8 +5,7 @@
 
 #include "core/window/window.h"
 #include "core/window/window_configuration.h"
-
-struct GLFWwindow;
+#include <GLFW/glfw3.h>
 
 namespace hive 
 {
