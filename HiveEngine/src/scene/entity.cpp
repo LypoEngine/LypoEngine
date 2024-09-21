@@ -26,9 +26,4 @@ namespace hive {
         }
         return temp;
     }
-
-    std::ostream &operator<<(std::ostream &os, const Entity &entity) {
-        return os << entity.toString();
-    }
-
 }

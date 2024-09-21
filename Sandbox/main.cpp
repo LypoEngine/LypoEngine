@@ -125,11 +125,10 @@ int main(void)
 	hive::Scene scene = {};
 	hive::Entity entity = scene.createEntity("Test");
 	hive::Entity entity_no_name = scene.createEntity();
-	std::cout << entity << std::endl;
-	std::cout << entity_no_name << std::endl;
+	std::cout << entity.toString() << std::endl;
+	std::cout << entity_no_name.toString() << std::endl;
 	auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
 	tag.Tag = "Replace";
-	std::cout << entity_no_name << std::endl;
 	std::cout << scene.toString() << std::endl;
 
     float angle = 0.0f;

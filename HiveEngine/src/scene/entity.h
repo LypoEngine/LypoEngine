@@ -58,8 +58,6 @@ namespace hive
         operator uint32_t() const;
 
         [[nodiscard]] std::string toString() const override;
-
-        friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
     private:
         entt::entity handler_ = {entt::null};
         Scene* scene_ = nullptr;
