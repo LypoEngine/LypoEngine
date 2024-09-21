@@ -9,7 +9,7 @@ namespace hive
 {
     struct IComponent {
         virtual ~IComponent() = default;
-        virtual std::string print() = 0;
+        virtual std::string toString() = 0;
     };
 
     struct IDComponent : IComponent
@@ -22,7 +22,7 @@ namespace hive
 
         ~IDComponent() override = default;
 
-        std::string print() override {
+        std::string toString() override {
             return "UUID : " + std::string(ID) + " ";
         }
     };
@@ -37,7 +37,7 @@ namespace hive
 
         ~TagComponent() override = default;
 
-        std::string print() override {
+        std::string toString() override {
             return "Tag : " + Tag + " ";
         }
     };

@@ -21,7 +21,7 @@ namespace hive {
         entt::registry& reg = scene_->getRegistry();
         for(auto&& curr : reg.storage()) {
             if (auto& storage = curr.second; storage.contains(handler_)) {
-                temp += reinterpret_cast<IComponent*>(storage.value(handler_))->print();
+                temp += reinterpret_cast<IComponent*>(storage.value(handler_))->toString();
             }
         }
         return temp;
