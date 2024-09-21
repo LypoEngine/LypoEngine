@@ -7,8 +7,9 @@
 #include "core/object.h"
 #include "components.h"
 #include <unordered_map>
-#include <ostream>
-
+#include <entt/entt.hpp>
+#include "components.h"
+#include "unordered_map"
 
 namespace hive
 {
