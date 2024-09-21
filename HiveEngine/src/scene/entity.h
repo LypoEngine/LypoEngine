@@ -18,7 +18,7 @@ namespace hive
         Entity(entt::entity entity, Scene* scene) : handler_(entity), scene_(scene) {}
         Entity(const Entity& other) = default;
 
-        ~Entity() = default;
+        ~Entity() override = default;
 
         template<typename T, typename... Args>
         T& addComponent(Args&&...args) {

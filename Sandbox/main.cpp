@@ -130,6 +130,7 @@ int main(void)
 	auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
 	tag.Tag = "Replace";
 	std::cout << entity_no_name << std::endl;
+	std::cout << scene.toString() << std::endl;
 
     float angle = 0.0f;
   
