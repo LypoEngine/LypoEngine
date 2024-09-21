@@ -2,7 +2,6 @@
 // Created by GuillaumeIsCoding on 9/4/2024
 //
 #pragma once
-#include <ostream>
 #include <string>
 #include "core/uuid.h"
 
@@ -10,7 +9,7 @@ namespace hive
 {
     struct IComponent {
         virtual ~IComponent() = default;
-        virtual std::ostream& print(std::ostream& os) = 0;
+        virtual std::string print() = 0;
     };
 
     struct IDComponent : IComponent
@@ -23,8 +22,8 @@ namespace hive
 
         ~IDComponent() override = default;
 
-        std::ostream& print(std::ostream& os) override {
-            return os << "UUID : " << ID << " ";
+        std::string print() override {
+            return "UUID : " + std::string(ID) + " ";
         }
     };
 
@@ -38,8 +37,8 @@ namespace hive
 
         ~TagComponent() override = default;
 
-        std::ostream& print(std::ostream& os) override {
-            return os << "Tag : " << Tag << " ";
+        std::string print() override {
+            return "Tag : " + Tag + " ";
         }
     };
 }

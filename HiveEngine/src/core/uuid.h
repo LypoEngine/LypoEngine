@@ -2,6 +2,7 @@
 // Created by GuillaumeIsCoding on 9/6/2024
 //
 #pragma once
+#include <string>
 
 namespace hive
 {
@@ -13,6 +14,7 @@ namespace hive
         UUID(const UUID&) = default;
 
         operator uint64_t() const { return uuid_; }
+        operator std::string() const {return std::to_string(uuid_);}
     private:
         uint64_t uuid_;
     };

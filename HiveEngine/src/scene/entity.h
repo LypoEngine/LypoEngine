@@ -6,16 +6,19 @@
 #include <functional>
 #include <algorithm>
 #include <ostream>
+#include "core/object.h"
 #include "components.h"
 #include "scene.h"
 
 namespace hive
 {
-    class Entity {
+    class Entity : public Object {
     public:
         Entity() = default;
         Entity(entt::entity entity, Scene* scene) : handler_(entity), scene_(scene) {}
         Entity(const Entity& other) = default;
+
+        ~Entity() = default;
 
         template<typename T, typename... Args>
         T& addComponent(Args&&...args) {
@@ -53,6 +56,8 @@ namespace hive
         operator entt::entity() const;
         operator bool() const;
         operator uint32_t() const;
+
+        [[nodiscard]] std::string toString() const override;
 
         friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
     private:
