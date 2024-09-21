@@ -12,7 +12,7 @@ namespace hive {
         entity.addComponent<IDComponent>(id);
         auto& tag = entity.addComponent<TagComponent>();
         tag.Tag = name.empty() ? "Default Entity" : name;
-        entities_[id] = entity;
+        entities_[id] = &entity;
         return entity;
     }
 
@@ -28,7 +28,7 @@ namespace hive {
     std::string Scene::toString() const {
         std::string str = "Scene {\n";
         for (auto curr : entities_) {
-            str += curr.second.toString() + "\n";
+            str += curr.second->toString() + "\n";
         }
         str += "}";
         return str;

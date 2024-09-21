@@ -29,7 +29,7 @@ namespace hive
         std::string toString() const override;
     private:
         friend class Entity;
-        std::unordered_map<UUID, Entity> entities_;
+        std::unordered_map<UUID, Entity*> entities_;
         entt::registry registry_;
     };
 }
