@@ -5,18 +5,20 @@
 #include <entt/entt.hpp>
 #include <functional>
 #include <algorithm>
-#include <ostream>
+#include "core/object.h"
 #include "components.h"
 #include "scene.h"
 
 namespace hive
 {
-    class Entity {
+    class Entity : public Object {
     public:
         Entity() = default;
         Entity(entt::entity entity, Scene* scene) : handler_(entity), scene_(scene) {}
         Entity(const Entity& other) = default;
 
+        ~Entity() override = default;
+        
         template<typename T, typename... Args>
         T& addComponent(Args&&...args) {
             assert(!hasComponent<T>());
@@ -54,7 +56,8 @@ namespace hive
         operator bool() const;
         operator uint32_t() const;
 
-        friend std::ostream& operator<<(std::ostream& os, const Entity& entity);
+        [[nodiscard]] std::string toString() const override;
+
     private:
         entt::entity handler_ = {entt::null};
         Scene* scene_ = nullptr;

@@ -16,14 +16,14 @@ namespace hive {
 
     Entity::operator unsigned() const {return static_cast<uint32_t>(handler_);}
 
-    std::ostream &operator<<(std::ostream &os, const Entity &entity) {
-        entt::registry& reg = entity.scene_->getRegistry();
+    std::string Entity::toString() const {
+        std::string temp = "";
+        entt::registry& reg = scene_->getRegistry();
         for(auto&& curr : reg.storage()) {
-            if (auto& storage = curr.second; storage.contains(entity.handler_)) {
-                reinterpret_cast<IComponent*>(storage.value(entity.handler_))->print(os);
+            if (auto& storage = curr.second; storage.contains(handler_)) {
+                temp += reinterpret_cast<IComponent*>(storage.value(handler_))->toString();
             }
         }
-        return os;
+        return temp;
     }
-
 }

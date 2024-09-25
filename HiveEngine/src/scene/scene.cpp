@@ -12,10 +12,12 @@ namespace hive {
         entity.addComponent<IDComponent>(id);
         auto& tag = entity.addComponent<TagComponent>();
         tag.Tag = name.empty() ? "Default Entity" : name;
+        entities_[id] = &entity;
         return entity;
     }
 
     void Scene::destroyEntity(Entity entity) {
+        entities_.erase(entity.getComponent<IDComponent>().ID);
         registry_.destroy(entity);
     }
 
@@ -23,4 +25,12 @@ namespace hive {
         return registry_;
     }
 
+    std::string Scene::toString() const {
+        std::string str = "Scene {\n";
+        for (auto curr : entities_) {
+            str += curr.second->toString() + "\n";
+        }
+        str += "}";
+        return str;
+    }
 }
