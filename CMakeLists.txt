@@ -27,6 +27,9 @@ include_directories(HiveEngine/dep/glm/glm)
 add_subdirectory(HiveEngine/dep/entt)
 include_directories(HiveEngine/dep/entt/single_include)
 
+add_subdirectory(HiveEngine/dep/easy_profiler)
+include_directories(HiveEngine/dep/easy_profiler/easy_profiler_core)
+
 include_directories(HiveEngine/dep/stb_image)
 add_library(stb_image STATIC HiveEngine/dep/stb_image/stb_image.cpp)
 
@@ -55,7 +58,7 @@ endif ()
 
 
 add_library(hive_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${INPUT_SOURCES} ${SCENE_SOURCE} ${PCH_SOURCE})
-target_link_libraries(hive_engine glfw glad EnTT glm stb_image)
+target_link_libraries(hive_engine glfw glad EnTT glm easy_profiler stb_image)
 target_precompile_headers(hive_engine PRIVATE ${PCH_HEADER})
 
 ######################################################################

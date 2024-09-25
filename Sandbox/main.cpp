@@ -35,8 +35,6 @@
 
 #include "scene/scene.h"
 
-#include "core/timer.h"
-
 unsigned int createBasicShader();
 unsigned int createTextureShader();
 
@@ -124,17 +122,14 @@ int main(void)
     textureShader->uploadUniformInt("u_Texture", 0);
   
     // TEST ECS
-	{
-		hive::Timer timer;
-		hive::Scene scene = {};
-		hive::Entity entity = scene.createEntity("Test");
-		hive::Entity entity_no_name = scene.createEntity();
-		std::cout << entity.toString() << std::endl;
-		std::cout << entity_no_name.toString() << std::endl;
-		auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
-		tag.Tag = "Replace";
-		std::cout << scene.toString() << std::endl;
-	}
+	hive::Scene scene = {};
+	hive::Entity entity = scene.createEntity("Test");
+	hive::Entity entity_no_name = scene.createEntity();
+	std::cout << entity.toString() << std::endl;
+	std::cout << entity_no_name.toString() << std::endl;
+	auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
+	tag.Tag = "Replace";
+	std::cout << scene.toString() << std::endl;
     float angle = 0.0f;
   
     /* Loop until the user closes the window */
