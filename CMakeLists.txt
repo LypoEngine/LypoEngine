@@ -36,6 +36,7 @@ add_library(stb_image STATIC HiveEngine/dep/stb_image/stb_image.cpp)
 file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h)
 
 add_compile_definitions(HIVE_PLATFORM_GLFW)
+add_compile_definitions(BUILD_WITH_EASY_PROFILER)
 
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
