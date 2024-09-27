@@ -35,11 +35,15 @@
 
 #include "scene/scene.h"
 
+#include "core/Profiling/profiler.h"
+
 unsigned int createBasicShader();
 unsigned int createTextureShader();
 
 int main(void)
 {
+	INIT_PROFILING;
+
 	hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
 
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
@@ -135,6 +139,7 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
+    	BLOCK_PROFILING("BLOCK TEST");
         angle += 0.5f;
 
         m_Camera.setPosition({ 0.5f, 0.0f, 0.0f });
@@ -159,7 +164,9 @@ int main(void)
             std::cout << " Right mouse button pressed" << std::endl;
         }
         window->onUpdate();
+    	END_BLOCK_PROFILING;
     }
+	DUMP_PROFILING("test.prof");
     return 0;
 }
 
