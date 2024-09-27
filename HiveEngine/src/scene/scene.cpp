@@ -1,3 +1,5 @@
+#include "lypch.h"
+#include "components.h"
 #include "scene.h"
 #include "entity.h"
 #include "core/uuid.h"
@@ -8,11 +10,13 @@ namespace hive {
     }
 
     Entity Scene::createEntityWithID(UUID id, const std::string &name) {
+        FUNCTION_PROFILING(hive::colors::Red);
         Entity entity = {registry_.create(), this};
         entity.addComponent<IDComponent>(id);
         auto& tag = entity.addComponent<TagComponent>();
         tag.Tag = name.empty() ? "Default Entity" : name;
         entities_[id] = &entity;
+        END_BLOCK_PROFILING;
         return entity;
     }
 
