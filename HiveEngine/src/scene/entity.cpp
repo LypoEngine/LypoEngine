@@ -1,3 +1,4 @@
+#include "lypch.h"
 #include "entity.h"
 
 namespace hive {
@@ -17,6 +18,7 @@ namespace hive {
     Entity::operator unsigned() const {return static_cast<uint32_t>(handler_);}
 
     std::string Entity::toString() const {
+        FUNCTION_PROFILING(hive::colors::Orange);
         std::string temp = "";
         entt::registry& reg = scene_->getRegistry();
         for(auto&& curr : reg.storage()) {
@@ -24,6 +26,7 @@ namespace hive {
                 temp += reinterpret_cast<IComponent*>(storage.value(handler_))->toString();
             }
         }
+        END_BLOCK_PROFILING;
         return temp;
     }
 }

@@ -21,8 +21,10 @@ namespace hive {
     }
 
     void Scene::destroyEntity(Entity entity) {
+        FUNCTION_PROFILING(hive::colors::Red);
         entities_.erase(entity.getComponent<IDComponent>().ID);
         registry_.destroy(entity);
+        END_BLOCK_PROFILING;
     }
 
     entt::registry& Scene::getRegistry() {
@@ -30,11 +32,13 @@ namespace hive {
     }
 
     std::string Scene::toString() const {
+        FUNCTION_PROFILING(hive::colors::Red);
         std::string str = "Scene {\n";
         for (auto curr : entities_) {
             str += curr.second->toString() + "\n";
         }
         str += "}";
+        END_BLOCK_PROFILING;
         return str;
     }
 }

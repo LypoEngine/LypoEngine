@@ -3,8 +3,6 @@
 //
 #pragma once
 #include <entt/entt.hpp>
-#include <functional>
-#include <algorithm>
 #include "core/object.h"
 #include "components.h"
 #include "scene.h"
@@ -40,7 +38,6 @@ namespace hive
         T& getComponent() {
             assert(hasComponent<T>());
             return scene_->registry_.get<T>(handler_);
-
         }
 
         template<typename T>

@@ -336,6 +336,7 @@ namespace hive
     constexpr color_t Silver      = Grey300;
     constexpr color_t BlueGrey    = BlueGrey500;
 
+    constexpr color_t Default = Wheat;
     }
 }
 
