@@ -12,7 +12,7 @@
 #include <unordered_set>
 #include <core/logging/Logger.h>
 #include <core/Profiling/profiler.h>
-#include <core/Profiling/profiler_configurations.h>
+#include <core/Profiling/profiler_colors.h>
 
 template<typename T>
 using URef = std::unique_ptr<T>;
