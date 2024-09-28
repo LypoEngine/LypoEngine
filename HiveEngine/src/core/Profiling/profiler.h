@@ -25,50 +25,29 @@ namespace hive
         FORCE_ON_WITHOUT_CHILDREN = FORCE_ON | OFF_RECURSIVE, // The block is ALWAYS ON but all of it's children are OFF.   
     };
 
-    /**
-     * Enable Profiling Tools
-     */
-    #define ENABLE_PROFILING            EASY_PROFILER_ENABLE;
-    /**
-     * Disable Profiling Tools
-     */
-    #define DISABLE_PROFILING           EASY_PROFILER_DISABLE;
-    /**
-     * Initialization of Profiling Tools. Block will be send via network
-     * @param DEFAULT_PORT If not defined the value will be 28077
-     */
+    #define ENABLE_PROFILING                EASY_PROFILER_ENABLE;
+
+    #define DISABLE_PROFILING               EASY_PROFILER_DISABLE;
+
     #define INIT_NETWORK_PROFILING  \
         ENABLE_PROFILING;           \
         profiler::startListen(DEFAULT_PORT);
-    /**
-     * Stops profiling via newtwok
-     */
-    #define STOP_NETWORK_PROFILING      profiler::stopListen();
-    /**
-     * Dumps block into a file
-     * @param filename name of the file where blocks will be save
-     */
-    #define DUMP_PROFILING(filename)    profiler::dumpBlocksToFile(filename);
-    /**
-     * 
-     * @param name Name of the profling block
-     * @param color Color of the profiling block
-     */
-    #define BLOCK_PROFILING(name, ...)  EASY_BLOCK(name, ## __VA_ARGS__)
-    /**
-     * 
-     * @param  color Color of the profiling block
-     */
-    #define FUNCTION_PROFILING(...)     BLOCK_PROFILING(FUNCTION_NAME, ## __VA_ARGS__);
-    /**
-     * 
-     */
-    #define MARKER_PROFILING(name, ...) EASY_EVENT(name, ## __VA_ARGS__);
-    /**
-     * 
-     */
-    #define END_BLOCK_PROFILING EASY_END_BLOCK
 
+    #define STOP_NETWORK_PROFILING          profiler::stopListen();
+
+    #define DUMP_PROFILING(filename)        profiler::dumpBlocksToFile(filename);
+
+    #define BLOCK_PROFILING(name, ...)      EASY_BLOCK(name, ## __VA_ARGS__)
+
+    #define FUNCTION_PROFILING(...)         BLOCK_PROFILING(FUNCTION_NAME, ## __VA_ARGS__);
+
+    #define MARKER_PROFILING(name, ...)     EASY_EVENT(name, ## __VA_ARGS__);
+
+    #define END_BLOCK_PROFILING             EASY_END_BLOCK
+
+    #define THREAD_PROFILING(name)          EASY_THREAD(name);
+
+    #define MAIN_THREAD_PROFLING            THREAD_PROFILING("Main");
 
 }
 

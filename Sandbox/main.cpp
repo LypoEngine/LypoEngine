@@ -42,8 +42,8 @@ unsigned int createTextureShader();
 
 int main(void)
 {
-	INIT_PROFILING;
-
+	ENABLE_PROFILING;
+	MAIN_THREAD_PROFLING;
 	hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
 
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
@@ -135,11 +135,11 @@ int main(void)
 	tag.Tag = "Replace";
 	std::cout << scene.toString() << std::endl;
     float angle = 0.0f;
-  
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
-    	BLOCK_PROFILING("BLOCK TEST");
+    	BLOCK_PROFILING("BLOCK TEST", hive::BlockStatus::ON, hive::colors::Green);
         angle += 0.5f;
 
         m_Camera.setPosition({ 0.5f, 0.0f, 0.0f });
