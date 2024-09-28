@@ -16,6 +16,7 @@ struct InputData {
 InputData *input_data;
 
 void hive::Input::init(void* window) {
+    Logger::log("Initializing Input", LogLevel::Debug);
     input_data = new InputData();
 
     //TODO detect witch Window implementation they use. But for now default is glfw
@@ -23,6 +24,7 @@ void hive::Input::init(void* window) {
 }
 
 void hive::Input::shutdown() {
+    Logger::log("Shutting down Input", LogLevel::Debug);
     delete input_data->input_manager;
     delete input_data;
 }
