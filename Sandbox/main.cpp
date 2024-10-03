@@ -4,6 +4,7 @@
 #include "core/logging/Logger.h"
 #include "core/logging/LoggingFactory.h"
 #include "core/window/window.h"
+#include "core/window/WindowManager.h"
 #include "core/window/window_configuration.h"
 #include "core/window/window_factory.h"
 #include "scene/components.h"
@@ -25,17 +26,17 @@ struct myData : hive::IComponent
 
 class TestSystem : public hive::System::System
 {
+
+public:
     void update(float deltaTime) override
     {
-        if (hive::Input::getKeyDown(hive::KeyCode::KEY_SPACE))
+        if(hive::Input::getKeyDown(hive::KEY_SPACE))
         {
-            hive::Logger::log("Space was pressed", hive::LogLevel::Info);
-            hive::QueryBuilder<myData> query;
+            auto window = hive::WindowManager::getCurrentWindow();
+            auto config = window->getConfiguration();
 
-            for(auto [entity, data]: query.each()) {
-                hive::Logger::log(data.toString(), hive::LogLevel::Info);
-                data.x += 1;
-            }
+            config.toggle(hive::WindowConfigurationOptions::CURSOR_DISABLED);
+            window->updateConfiguration(config);
         }
     }
 };
@@ -46,14 +47,16 @@ void setupLogger(const hive::LogOutputType type, const hive::LogLevel level)
     hive::Logger::setLogger(hive::LoggingFactory::createLogger(type, level));
 }
 
-hive::Window* setupWindow(const hive::WindowConfiguration configuration)
+void setupWindow(const hive::WindowConfiguration configuration)
 {
-    return hive::WindowFactory::Create("Hive Engine", 800, 600, configuration);
+    auto window = std::shared_ptr<hive::Window>(hive::WindowFactory::Create("Hive Engine", 800, 600, configuration));
+    hive::WindowManager::setCurrentWindow(window);
 }
 
-void setupInput(const hive::Window &window)
+void setupInput()
 {
-    hive::Input::init(window.getNativeWindow());
+    auto window = hive::WindowManager::getCurrentWindow();
+    hive::Input::init(window->getNativeWindow());
 }
 
 void setupEcs()
@@ -76,11 +79,13 @@ int main()
     hive::WindowConfiguration configuration;
     // configuration.set(hive::WindowConfigurationOptions::CURSOR_DISABLED, true);
 
-    const auto window = setupWindow(configuration);
+    setupWindow(configuration);
 
-    setupInput(*window);
+    setupInput();
     setupEcs();
     //Game loop
+
+    auto window = hive::WindowManager::getCurrentWindow();
     while(!window->shouldClose()) {
         //Swap the buffer
         window->onUpdate();
