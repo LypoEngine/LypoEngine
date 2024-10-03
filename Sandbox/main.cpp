@@ -70,21 +70,33 @@ void setupEcs()
     hive::ECS::registerSystem(new TestSystem(), "TestSystem");
 }
 
-int main()
-{
 
+void shutdown()
+{
+    hive::ECS::shutdown();
+    hive::Input::shutdown();
+    hive::WindowManager::setCurrentWindow(nullptr);
+    hive::Logger::setLogger(nullptr);
+}
+
+void init()
+{
     setupLogger(hive::LogOutputType::Console, hive::LogLevel::Debug);
 
-    //Init Window
     hive::WindowConfiguration configuration;
     // configuration.set(hive::WindowConfigurationOptions::CURSOR_DISABLED, true);
-
     setupWindow(configuration);
 
     setupInput();
-    setupEcs();
-    //Game loop
 
+    setupEcs();
+}
+
+int main()
+{
+    init();
+
+    //Game loop
     auto window = hive::WindowManager::getCurrentWindow();
     while(!window->shouldClose()) {
         //Swap the buffer
@@ -94,11 +106,9 @@ int main()
         hive::ECS::updateSystems(0);
     }
 
-    hive::ECS::shutdown();
+    window.reset();
 
-    //Shutdown Input
-    hive::Input::shutdown();
-    //Shutdown Window (automatic in this case)
-    //Shutdown Logger (automatic in this case)
+    shutdown();
+
     return 0;
 }
