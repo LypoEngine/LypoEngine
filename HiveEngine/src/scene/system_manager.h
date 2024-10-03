@@ -12,7 +12,8 @@ namespace hive
 	class SystemManager
 	{
 	public:
-		explicit SystemManager(const std::shared_ptr<Scene>& scene);
+		SystemManager() = default;
+
 		~SystemManager();
 
 		void updateSystems(float deltaTime);
@@ -26,7 +27,5 @@ namespace hive
 	private:
 		std::map<std::string, System*> m_systems;
 		std::map<std::string, bool> m_systems_state;
-
-		std::shared_ptr<Scene> m_scene;
 	};
 }

@@ -6,9 +6,9 @@
 
 #include <assert.h>
 
-hive::SystemManager::SystemManager(const std::shared_ptr<Scene>& scene): m_scene(scene)
-{
-}
+
+
+
 
 hive::SystemManager::~SystemManager()
 {

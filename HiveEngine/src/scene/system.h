@@ -7,7 +7,6 @@
 
 namespace hive
 {
-	class Scene;
 	class SystemManager;
 }
 

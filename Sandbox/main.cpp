@@ -6,9 +6,9 @@
 #include "core/window/window.h"
 #include "core/window/window_configuration.h"
 #include "core/window/window_factory.h"
+#include "scene/components.h"
 #include "scene/ecs.h"
-#include "scene/entity.h"
-#include "scene/scene.h"
+#include "scene/query_builder.h"
 #include "scene/system_manager.h"
 
 
@@ -41,10 +41,11 @@ class TestSystem : public hive::System::System
         if (hive::Input::getKeyDown(hive::KeyCode::KEY_SPACE))
         {
             hive::Logger::log("Space was pressed", hive::LogLevel::Info);
-            auto view = hive::ECS::getRegistry().view<myData>();
-            for(auto [entity, vel]: view.each()) {
-                hive::Logger::log(vel.toString(), hive::LogLevel::Info);
-                vel.x += 1;
+            hive::QueryBuilder<myData> query;
+
+            for(auto [entity, data]: query.each()) {
+                hive::Logger::log(data.toString(), hive::LogLevel::Info);
+                data.x += 1;
             }
         }
 
@@ -69,8 +70,8 @@ int main()
     //ECS
     hive::ECS::init();
 
-    auto entity = hive::ECS::getCurrentScene()->createEntity("Hive Engine");
-    entity.addComponent<myData>();
+    auto entity = hive::ECS::createEntity();
+    hive::ECS::addComponent<myData>(entity);
 
     hive::ECS::registerSystem(new TestSystem(), "TestSystem");
 
