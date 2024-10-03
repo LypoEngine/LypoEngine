@@ -108,4 +108,9 @@ namespace hive
     bool GlfwWindow::shouldClose() const {
         return glfwWindowShouldClose(m_Window);
     }
+
+    WindowConfiguration GlfwWindow::getConfiguration()
+    {
+        return m_Configuration;
+    }
 }

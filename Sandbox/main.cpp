@@ -40,6 +40,22 @@ class TestSystem : public hive::System::System
     }
 };
 
+
+void setupLogger(const hive::LogOutputType type, const hive::LogLevel level)
+{
+    hive::Logger::setLogger(hive::LoggingFactory::createLogger(type, level));
+}
+
+hive::Window* setupWindow(const hive::WindowConfiguration configuration)
+{
+    return hive::WindowFactory::Create("Hive Engine", 800, 600, configuration);
+}
+
+void setupInput(const hive::Window &window)
+{
+    hive::Input::init(window.getNativeWindow());
+}
+
 void setupEcs()
 {
     //ECS
@@ -54,18 +70,15 @@ void setupEcs()
 int main()
 {
 
-    //Init Logging
-    hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug));
+    setupLogger(hive::LogOutputType::Console, hive::LogLevel::Debug);
 
     //Init Window
     hive::WindowConfiguration configuration;
     // configuration.set(hive::WindowConfigurationOptions::CURSOR_DISABLED, true);
-    const auto window = std::unique_ptr<hive::Window>(hive::WindowFactory::Create("Hive Engine", 800, 600, configuration));
 
-    //Init Input
-    hive::Input::init(window->getNativeWindow());
+    const auto window = setupWindow(configuration);
 
-
+    setupInput(*window);
     setupEcs();
     //Game loop
     while(!window->shouldClose()) {
