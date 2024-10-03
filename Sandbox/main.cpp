@@ -12,17 +12,6 @@
 #include "scene/system_manager.h"
 
 
-class InputSystem : public hive::System::System
-{
-public:
-    void update(float deltaTime) override
-    {
-        if (hive::Input::getKeyDown(hive::KeyCode::KEY_A))
-        {
-            hive::Logger::log("A was pressed", hive::LogLevel::Info);
-        }
-    }
-};
 
 struct myData : hive::IComponent
 {
@@ -48,9 +37,19 @@ class TestSystem : public hive::System::System
                 data.x += 1;
             }
         }
-
     }
 };
+
+void setupEcs()
+{
+    //ECS
+    hive::ECS::init();
+
+    auto entity = hive::ECS::createEntity();
+    hive::ECS::addComponent<myData>(entity);
+
+    hive::ECS::registerSystem(new TestSystem(), "TestSystem");
+}
 
 int main()
 {
@@ -67,14 +66,7 @@ int main()
     hive::Input::init(window->getNativeWindow());
 
 
-    //ECS
-    hive::ECS::init();
-
-    auto entity = hive::ECS::createEntity();
-    hive::ECS::addComponent<myData>(entity);
-
-    hive::ECS::registerSystem(new TestSystem(), "TestSystem");
-
+    setupEcs();
     //Game loop
     while(!window->shouldClose()) {
         //Swap the buffer

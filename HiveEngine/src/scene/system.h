@@ -7,11 +7,6 @@
 
 namespace hive
 {
-	class SystemManager;
-}
-
-namespace hive
-{
 	class System
 	{
 	public:
@@ -20,6 +15,11 @@ namespace hive
 
 		virtual void init() {};
 		virtual void update(float deltaTime) {};
+
+	protected:
+		friend class SystemManager;
+		bool is_active = true;
+
 	};
 }
 

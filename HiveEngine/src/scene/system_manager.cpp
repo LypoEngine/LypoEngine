@@ -4,12 +4,6 @@
 
 #include "system_manager.h"
 
-#include <assert.h>
-
-
-
-
-
 hive::SystemManager::~SystemManager()
 {
 	for (const auto& [name, system]: m_systems)
@@ -26,9 +20,7 @@ void hive::SystemManager::updateSystems(float deltaTime)
 		const std::string name = system_pair.first;
 		auto system = system_pair.second;
 
-		assert(m_systems_state.contains(name));
-		//Only execute systems that are active
-		if(m_systems_state[name])
+		if(system->is_active)
 		{
 			system->update(deltaTime);
 		}
@@ -38,20 +30,13 @@ void hive::SystemManager::updateSystems(float deltaTime)
 void hive::SystemManager::registerSystem(System* system, const std::string& name)
 {
 	m_systems[name] = system;
-	m_systems_state[name] = true;
 	system->init();
 }
 
 void hive::SystemManager::removeSystem(const std::string& name)
 {
-	m_systems_state.erase(name);
 	m_systems.erase(name);
 }
 
-void hive::SystemManager::setSystemState(const std::string& name, const bool state)
-{
-	assert(m_systems_state.contains(name));
-	m_systems_state[name] = state;
-}
 
 
