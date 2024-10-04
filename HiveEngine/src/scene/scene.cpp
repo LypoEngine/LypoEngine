@@ -10,18 +10,15 @@ namespace hive {
     }
 
     Entity Scene::createEntityWithID(UUID id, const std::string &name) {
-        FUNCTION_PROFILING(hive::colors::Red);
         Entity entity = {registry_.create(), this};
         entity.addComponent<IDComponent>(id);
         auto& tag = entity.addComponent<TagComponent>();
         tag.Tag = name.empty() ? "Default Entity" : name;
         entities_[id] = &entity;
-        END_BLOCK_PROFILING;
         return entity;
     }
 
     void Scene::destroyEntity(Entity entity) {
-        FUNCTION_PROFILING(hive::colors::Red);
         entities_.erase(entity.getComponent<IDComponent>().ID);
         registry_.destroy(entity);
         END_BLOCK_PROFILING;
@@ -32,13 +29,11 @@ namespace hive {
     }
 
     std::string Scene::toString() const {
-        FUNCTION_PROFILING(hive::colors::Red);
         std::string str = "Scene {\n";
         for (auto curr : entities_) {
             str += curr.second->toString() + "\n";
         }
         str += "}";
-        END_BLOCK_PROFILING;
         return str;
     }
 }

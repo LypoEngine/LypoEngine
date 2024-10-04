@@ -3,6 +3,8 @@
 //
 #pragma once
 #include <entt/entt.hpp>
+#include <functional>
+#include <algorithm>
 #include "core/object.h"
 #include "components.h"
 #include "scene.h"
