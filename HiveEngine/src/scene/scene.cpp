@@ -21,7 +21,6 @@ namespace hive {
     void Scene::destroyEntity(Entity entity) {
         entities_.erase(entity.getComponent<IDComponent>().ID);
         registry_.destroy(entity);
-        END_BLOCK_PROFILING;
     }
 
     entt::registry& Scene::getRegistry() {
