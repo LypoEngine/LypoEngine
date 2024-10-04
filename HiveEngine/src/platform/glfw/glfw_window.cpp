@@ -17,8 +17,8 @@ namespace hive
             Logger::log("Unable to initialize glfw", LogLevel::Error);
         }
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
         if(m_Window == nullptr) {
