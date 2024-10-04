@@ -44,11 +44,6 @@ namespace hive
     #define MARKER_PROFILING(name, ...)     EASY_EVENT(name, ## __VA_ARGS__);
 
     #define END_BLOCK_PROFILING             EASY_END_BLOCK
-
-    #define THREAD_PROFILING(name)          EASY_THREAD(name);
-
-    #define MAIN_THREAD_PROFLING            THREAD_PROFILING("Main");
-
 }
 
 #endif //PROFILER_H
