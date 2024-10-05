@@ -4,7 +4,6 @@
 //
 // Created by lapor on 7/19/2024.
 //
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "core/window.h"
@@ -25,7 +24,6 @@
 
 #include "platform/opengl/opengl_shader.h"
 #include "platform/opengl/GLCheck.h"
-#include "stb_image.h"
 #include "core/logging/ConsoleLogger.h"
 #include "core/logging/Logger.h"
 #include "core/logging/LoggingFactory.h"
@@ -44,15 +42,15 @@ int main(void)
 
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
 
-	int width, height;
-	auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
-	window->setWindowIcon(data, width, height);
+	// int width, height;
+	// auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
+	// window->setWindowIcon(data, width, height);
 
-    auto mouse = hive::Mouse::create(window->getNativeWindow());
+    // auto mouse = hive::Mouse::create(window->getNativeWindow());
 
     //from learnopengl.com
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /*unsigned int shaderProgram = createBasicShader();
@@ -122,7 +120,7 @@ int main(void)
     textureShader->uploadUniformInt("u_Texture", 0);
   
     // TEST ECS
-	  hive::Scene scene = {};
+	  hive::Scene scene;
 	  hive::Entity entity = scene.createEntity("Test");
 	  hive::Entity entity_no_name = scene.createEntity();
 	  std::cout << entity.toString() << std::endl;
@@ -130,7 +128,7 @@ int main(void)
 	  auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
 	  tag.Tag = "Replace";
 	  std::cout << scene.toString() << std::endl;
-    float angle = 0.0f;
+   float angle = 0.0f;
   
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
@@ -152,12 +150,12 @@ int main(void)
 
         /* Poll for and process events */
         double xpos, ypos;
-        mouse->getPosition(xpos, ypos);
+        // mouse->getPosition(xpos, ypos);
 
-        if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
-        {
-            std::cout << " Right mouse button pressed" << std::endl;
-        }
+        // if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
+        // {
+            // std::cout << " Right mouse button pressed" << std::endl;
+        // }
         window->onUpdate();
     }
     return 0;

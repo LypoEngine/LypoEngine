@@ -69,8 +69,8 @@ namespace hive
             return;
         }
 
-        hive::GlfwInputManager im = hive::GlfwInputManager(p_data_impl_->window);
-        glfwSetKeyCallback(p_data_impl_->window, im.key_callback);
+        // hive::GlfwInputManager im = hive::GlfwInputManager(p_data_impl_->window);
+        // glfwSetKeyCallback(p_data_impl_->window, im.key_callback);
 
         glfwSetWindowUserPointer(p_data_impl_->window, &p_data_impl_);
         setVSync(true);
