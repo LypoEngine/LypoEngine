@@ -27,6 +27,9 @@ include_directories(HiveEngine/dep/glm/glm)
 add_subdirectory(HiveEngine/dep/entt)
 include_directories(HiveEngine/dep/entt/single_include)
 
+set(EASY_PROFILER_NO_GUI ON)
+set(EASY_PROFILER_NO_SAMPLES ON)
+
 add_subdirectory(HiveEngine/dep/easy_profiler)
 include_directories(HiveEngine/dep/easy_profiler/easy_profiler_core)
 
@@ -35,11 +38,8 @@ add_library(stb_image STATIC HiveEngine/dep/stb_image/stb_image.cpp)
 
 file(GLOB_RECURSE CORE_SOURCES HiveEngine/src/core/*.cpp HiveEngine/src/core/*.h)
 
-set(EASY_PROFILER_NO_GUI ON)
-
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 add_compile_definitions(BUILD_WITH_EASY_PROFILER)
-
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     file(GLOB_RECURSE PLATFORM_SOURCES HiveEngine/src/platform/windows/*.cpp HiveEngine/src/platform/windows/*.h)
