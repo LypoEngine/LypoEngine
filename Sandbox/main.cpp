@@ -1,4 +1,6 @@
 #include <memory>
+#include <core/rendering/Renderer.hpp>
+#include <core/rendering/VertexArray.hpp>
 
 #include "core/inputs/input.h"
 #include "core/logging/Logger.h"
@@ -13,6 +15,10 @@
 #include "scene/scene.h"
 
 #include "core/Profiling/profiler.h"
+#include "core/rendering/orthographic_camera.h"
+#include "core/rendering/Texture.h"
+#include "GLFW/glfw3.h"
+#include "platform/opengl/opengl_shader.h"
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
@@ -33,12 +39,9 @@ int main(void)
     //Init Input
     hive::Input::init(window->getNativeWindow());
 
-    while(!window->shouldClose()) {
-        window->onUpdate();
 
     /*unsigned int shaderProgram = createBasicShader();
     unsigned int textureShader = createTextureShader();*/
-
     hive::OrthographicCamera m_Camera(-1.0f, 1.0f, -1.0f, 1.0f);
 
     std::string fragmentPath = "../HiveEngine/assets/shaders/basicColorShader.frag.glsl";
@@ -134,13 +137,6 @@ int main(void)
 
 
         /* Poll for and process events */
-        double xpos, ypos;
-        mouse->getPosition(xpos, ypos);
-
-        if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
-        {
-            std::cout << " Right mouse button pressed" << std::endl;
-        }
         window->onUpdate();
     	END_BLOCK_PROFILING;
     }

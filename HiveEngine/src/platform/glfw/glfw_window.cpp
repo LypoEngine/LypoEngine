@@ -1,12 +1,12 @@
 //
 // Created by GuillaumeIsCoding on 7/26/2024.
 //
+
+#include <glad/glad.h>
 #include "glfw_window.h"
+
+
 #include "core/window/window_configuration.h"
-
-
-#include "GLFW/glfw3.h"
-
 
 namespace hive
 {
@@ -25,8 +25,13 @@ namespace hive
             Logger::log("Unable to create a glfw window", LogLevel::Error);
         }
 
+
         glfwMakeContextCurrent(m_Window);
 
+        if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        {
+            Logger::log("Unable to init glad", LogLevel::Error);
+        }
         updateConfiguration(configuration);
     }
 
