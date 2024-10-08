@@ -1,3 +1,5 @@
+#include "lypch.h"
+#include "components.h"
 #include "scene.h"
 #include "entity.h"
 #include "core/uuid.h"

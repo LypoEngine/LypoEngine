@@ -8,8 +8,8 @@
 #include "components.h"
 #include <unordered_map>
 #include <entt/entt.hpp>
-#include "components.h"
-#include "unordered_map"
+#include "core/object.h"
+#include <unordered_map>
 
 namespace hive
 {

@@ -7,3 +7,6 @@
 [submodule "HiveEngine/dep/glm"]
 	path = HiveEngine/dep/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "HiveEngine/dep/easy_profiler"]
+	path = HiveEngine/dep/easy_profiler
+	url = https://github.com/yse/easy_profiler
