@@ -29,7 +29,7 @@ int main(void)
 	hive::Logger::init(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
 
     //Init Logging
-    hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug));
+    hive::Logger::init(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug));
 
     //Init Window
     hive::WindowConfiguration configuration;
@@ -142,5 +142,6 @@ int main(void)
     }
 	DUMP_PROFILING("test.prof");
     hive::Input::shutdown();
+	hive::Logger::shutdown();
     return 0;
 }
