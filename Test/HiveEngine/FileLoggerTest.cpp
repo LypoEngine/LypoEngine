@@ -2,7 +2,6 @@
 // Created by samuel on 10/7/24.
 //
 
-#include <bits/fs_fwd.h>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
