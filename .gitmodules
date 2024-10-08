@@ -10,3 +10,6 @@
 [submodule "Test/dep/googletest"]
 	path = Test/dep/googletest
 	url = https://github.com/google/googletest.git
+[submodule "HiveEngine/dep/easy_profiler"]
+	path = HiveEngine/dep/easy_profiler
+	url = https://github.com/yse/easy_profiler

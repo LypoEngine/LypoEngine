@@ -21,6 +21,14 @@ include_directories(dep/entt/single_include)
 include_directories(dep/stb_image)
 add_library(stb_image STATIC dep/stb_image/stb_image.cpp)
 
+set(EASY_PROFILER_NO_GUI ON)
+set(EASY_PROFILER_NO_SAMPLES ON)
+add_subdirectory(dep/easy_profiler)
+include_directories(dep/easy_profiler/easy_profiler_core)
+add_compile_definitions(BUILD_WITH_EASY_PROFILER)
+
+
+
 add_compile_definitions(HIVE_PLATFORM_GLFW)
 
 file(GLOB_RECURSE SCENE_SOURCES src/scene/*.cpp src/scene/*.h)
@@ -42,5 +50,5 @@ else()
 endif ()
 
 add_library(HiveEngine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES} ${VENDOR_SOURCES} ${WINDOW_BACKEND} ${SCENE_SOURCES})
-target_link_libraries(HiveEngine glfw glad EnTT glm stb_image)
+target_link_libraries(HiveEngine glfw glad EnTT glm stb_image easy_profiler)
 target_precompile_headers(HiveEngine PRIVATE ${PCH_HEADER})

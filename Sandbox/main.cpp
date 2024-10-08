@@ -33,11 +33,14 @@
 
 #include "scene/scene.h"
 
+#include "core/Profiling/profiler.h"
+
 unsigned int createBasicShader();
 unsigned int createTextureShader();
 
 int main(void)
 {
+	ENABLE_PROFILING;
 	hive::Logger::init(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
 
     auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
@@ -120,19 +123,21 @@ int main(void)
     textureShader->uploadUniformInt("u_Texture", 0);
   
     // TEST ECS
-	  hive::Scene scene;
-	  hive::Entity entity = scene.createEntity("Test");
-	  hive::Entity entity_no_name = scene.createEntity();
-	  std::cout << entity.toString() << std::endl;
-	  std::cout << entity_no_name.toString() << std::endl;
-	  auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
-	  tag.Tag = "Replace";
-	  std::cout << scene.toString() << std::endl;
-   float angle = 0.0f;
+	hive::Scene scene = {};
+	hive::Entity entity = scene.createEntity("Test");
+	hive::Entity entity_no_name = scene.createEntity();
+	std::cout << entity.toString() << std::endl;
+	std::cout << entity_no_name.toString() << std::endl;
+	auto& tag = entity_no_name.replaceComponent<hive::TagComponent>();
+	tag.Tag = "Replace";
+	std::cout << scene.toString() << std::endl;
   
+    float angle = 0.0f;
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
+    	BLOCK_PROFILING("BLOCK TEST", hive::BlockStatus::ON, hive::colors::Green);
         angle += 0.5f;
 
         m_Camera.setPosition({ 0.5f, 0.0f, 0.0f });
@@ -157,7 +162,9 @@ int main(void)
             // std::cout << " Right mouse button pressed" << std::endl;
         // }
         window->onUpdate();
+    	END_BLOCK_PROFILING;
     }
+	DUMP_PROFILING("test.prof");
     return 0;
 }
 

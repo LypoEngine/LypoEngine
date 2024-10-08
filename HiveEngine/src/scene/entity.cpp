@@ -1,3 +1,4 @@
+#include "lypch.h"
 #include "entity.h"
 
 namespace hive {

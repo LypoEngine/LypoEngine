@@ -40,7 +40,6 @@ namespace hive
         T& getComponent() {
             assert(hasComponent<T>());
             return scene_->registry_.get<T>(handler_);
-
         }
 
         template<typename T>
