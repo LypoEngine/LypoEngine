@@ -19,7 +19,10 @@ namespace hive {
     }
 
     void FileLogger::logImpl(const std::string &msg, LogLevel level) {
-        m_fileStream << msg << std::endl;
+        if(m_logLevel <= level)
+        {
+            m_fileStream << msg << std::endl;
+        }
     }
 
     bool FileLogger::isCorrect() {

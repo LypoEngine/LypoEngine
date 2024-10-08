@@ -8,14 +8,14 @@
 #include "core/logging/LoggingFactory.h"
 
 
-TEST(Logger, ConsoleLoggerShouldLogToConsole)
+TEST(ConsoleLogger, ConsoleLoggerShouldLogToConsole)
 {
 	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug);
 	hive::Logger::init(logger);
 
 	testing::internal::CaptureStdout();
 
-	hive::Logger::log("Basic test", hive::LogLevel::Info);
+	hive::Logger::log("Basic test", hive::LogLevel::Debug);
 
 	std::string output = testing::internal::GetCapturedStdout();
 
@@ -25,9 +25,11 @@ TEST(Logger, ConsoleLoggerShouldLogToConsole)
 }
 
 
-TEST(Logger, ConsoleLoggerShouldLogLevelEqualOrAbove)
+TEST(ConsoleLogger, ConsoleLoggerShouldLogLevelEqualOrAbove)
 {
 	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Warning);
+	EXPECT_TRUE(logger->isCorrect());
+
 	hive::Logger::init(logger);
 
 	{

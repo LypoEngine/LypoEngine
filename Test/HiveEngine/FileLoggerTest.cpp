@@ -45,31 +45,22 @@ TEST_F(FileLoggerTest, FileLoggerShouldLogToFile)
 }
 
 
-// TEST(Logger, ConsoleLoggerShouldLogLevelEqualOrAbove)
-// {
-// 	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Warning);
-// 	hive::Logger::setLogger(logger);
-//
-// 	{
-// 		testing::internal::CaptureStdout();
-// 		hive::Logger::log("Basic test", hive::LogLevel::Info);
-// 		std::string output = testing::internal::GetCapturedStdout();
-// 		EXPECT_EQ(output, "");
-// 	}
-//
-// 	{
-// 		testing::internal::CaptureStdout();
-// 		hive::Logger::log("Basic test", hive::LogLevel::Warning);
-// 		std::string output = testing::internal::GetCapturedStdout();
-// 		EXPECT_NE(output.find("Basic test"), std::string::npos);
-// 	}
-//
-//
-// 	{
-// 		testing::internal::CaptureStdout();
-// 		hive::Logger::log("Basic test", hive::LogLevel::Error);
-// 		std::string output = testing::internal::GetCapturedStdout();
-// 		EXPECT_NE(output.find("Basic test"), std::string::npos);
-// 	}
-// }
+TEST_F(FileLoggerTest, FileLoggerShouldLogLevelEqualOrAbove)
+{
+	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Warning);
+	EXPECT_TRUE(logger->isCorrect());
+
+	hive::Logger::init(logger);
+
+	hive::Logger::log("Basic test", hive::LogLevel::Debug);
+	hive::Logger::log("Basic test", hive::LogLevel::Info);
+	hive::Logger::log("Basic test", hive::LogLevel::Warning);
+	hive::Logger::log("Basic test", hive::LogLevel::Error);
+	hive::Logger::log("Basic test", hive::LogLevel::Fatal);
+
+	hive::Logger::shutdown();
+
+	std::string content = readFile("log.txt");
+	EXPECT_STREQ("Basic test\nBasic test\nBasic test\n", content.c_str());
+}
 

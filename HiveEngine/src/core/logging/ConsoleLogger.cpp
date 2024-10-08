@@ -10,7 +10,7 @@ namespace hive {
     }
 
     ConsoleLogger::~ConsoleLogger() {
-        logImpl("Closing the console logger", LogLevel::Info);
+        // logImpl("Closing the console logger", LogLevel::Info);
     }
 
     void ConsoleLogger::logImpl(const std::string &msg, LogLevel level) {
