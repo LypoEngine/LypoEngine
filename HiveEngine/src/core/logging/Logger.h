@@ -19,7 +19,8 @@ namespace hive {
     public:
         virtual ~Logger() = default;
 
-        static void setLogger(Logger* logger);
+        static void init(Logger* logger);
+        static void shutdown();
         static void log(const std::string &msg, LogLevel level);
         virtual bool isCorrect() = 0;
 

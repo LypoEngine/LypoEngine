@@ -37,7 +37,7 @@ namespace hive {
     }
 
     void ConsoleLogger::resetColor() {
-        std::cout << "\033[0m";
+        std::cout << "\033[0m" << std::endl;
     }
 
 }

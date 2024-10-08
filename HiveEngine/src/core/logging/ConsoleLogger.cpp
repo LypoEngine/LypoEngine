@@ -16,7 +16,7 @@ namespace hive {
     void ConsoleLogger::logImpl(const std::string &msg, LogLevel level) {
         if(m_logLevel <= level) {
             setLogLevelColor(level);
-            std::cout << msg << std::endl;
+            std::cout << msg;
             resetColor();
         }
     }

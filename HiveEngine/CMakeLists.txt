@@ -1,5 +1,4 @@
 set(CMAKE_CXX_STANDARD 20)
-
 set(PCH_HEADER src/lypch.h)
 
 set(PCH_SOURCE src/lypch.cpp ${PCH_HEADER})
