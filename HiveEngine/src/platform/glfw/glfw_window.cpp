@@ -1,129 +1,116 @@
 //
 // Created by GuillaumeIsCoding on 7/26/2024.
 //
+
+#include <glad/glad.h>
 #include "glfw_window.h"
+
+
+#include "core/window/window_configuration.h"
 
 namespace hive
 {
-    struct GlfwWindow::DataImpl
-    {
-        DataImpl(const std::string& title, const uint32_t& width, const uint32_t& height, const hive::WindowFlags& flag, bool vSync, 
-            GLFWwindow* window = nullptr, GLFWmonitor* monitor = nullptr, const GLFWvidmode* mode = nullptr)
-            : title(title), width(width), height(height), flag(flag), vSync(vSync), window(window), monitor(monitor), mode(mode) {}
-        std::string title;
-        uint32_t width, height;
-        bool vSync;
-        hive::WindowFlags flag;
-        GLFWwindow* window;
-        GLFWmonitor* monitor;
-        const GLFWvidmode* mode;
-    };
 
-    GlfwWindow::GlfwWindow(const hive::WindowProperties& properties) noexcept : GlfwWindow(properties.title, properties.width, properties.height, properties.flag) {}
-
-    GlfwWindow::GlfwWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const hive::WindowFlags& flag) noexcept 
-        : p_data_impl_(std::make_unique<GlfwWindow::DataImpl>(title, width, height, flag, false, nullptr, nullptr, nullptr))
-    {
-        initialize();
-    }
-        
-    GlfwWindow::~GlfwWindow() noexcept
-    {
-        shutdown();
-    }
-
-    void GlfwWindow::initialize() noexcept
-    {  
-        if (!glfwInit())
-        {
+    GlfwWindow::GlfwWindow(const std::string &title, const int width, const int height, WindowConfiguration configuration): m_Width(width), m_Height(height), m_Window(nullptr) {
+        if(!glfwInit()) {
+            //TODO LOG message
             Logger::log("Unable to initialize glfw", LogLevel::Error);
-            return ;
         }
 
-        switch (p_data_impl_->flag)
-        {
-            case hive::WindowFlags::FULLSCREEN:
-                p_data_impl_->monitor = glfwGetPrimaryMonitor();
-            case hive::WindowFlags::DEFAULT:
-                p_data_impl_->window = glfwCreateWindow(p_data_impl_->width, p_data_impl_->height, p_data_impl_->title.c_str(), p_data_impl_->monitor, NULL);
-                break;
-            case hive::WindowFlags::WINDOWED_FULLSCREEN:
-                p_data_impl_->window = glfwCreateWindow(p_data_impl_->width, p_data_impl_->height, p_data_impl_->title.c_str(), p_data_impl_->monitor, NULL);
-                p_data_impl_->monitor = glfwGetPrimaryMonitor();
-                p_data_impl_->mode = glfwGetVideoMode(p_data_impl_->monitor);
-                glfwSetWindowMonitor(p_data_impl_->window, p_data_impl_->monitor, 0, 0, p_data_impl_->mode->width, p_data_impl_->mode->height, p_data_impl_->mode->refreshRate);
-                break;
-            }
-
-        if (!p_data_impl_->window)
-        {
-            Logger::log("Unable to initialize the window", LogLevel::Error);
-            return;
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+        if(m_Window == nullptr) {
+            Logger::log("Unable to create a glfw window", LogLevel::Error);
         }
 
-        glfwMakeContextCurrent(p_data_impl_->window);
 
-        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+        glfwMakeContextCurrent(m_Window);
+
+        if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
-            Logger::log("Unable to load glad", LogLevel::Error);
-            return;
+            Logger::log("Unable to init glad", LogLevel::Error);
         }
-
-        // hive::GlfwInputManager im = hive::GlfwInputManager(p_data_impl_->window);
-        // glfwSetKeyCallback(p_data_impl_->window, im.key_callback);
-
-        glfwSetWindowUserPointer(p_data_impl_->window, &p_data_impl_);
-        setVSync(true);
+        updateConfiguration(configuration);
     }
 
-    void GlfwWindow::shutdown() noexcept
-    { 
-        glfwDestroyWindow(p_data_impl_->window);
+    GlfwWindow::~GlfwWindow() {
+        Logger::log("Destructor GLFWWindow", LogLevel::Debug);
+        glfwDestroyWindow(m_Window);
         glfwTerminate();
     }
 
-    void GlfwWindow::onUpdate()
-    {
-        /* Swap front and back buffers */
-        glfwSwapBuffers(p_data_impl_->window);
-
-        glfwPollEvents();
+    int GlfwWindow::getWidth() const {
+        return m_Width;
     }
 
-    void GlfwWindow::setVSync(bool enabled)
-    {
-        glfwSwapInterval(enabled ? 1 : 0);
-        p_data_impl_->vSync = enabled;
+    int GlfwWindow::getHeight() const {
+        return m_Height;
     }
 
-    bool GlfwWindow::isVSync() const 
-    {
-        return p_data_impl_->vSync;
+    void * GlfwWindow::getNativeWindow() const {
+        return m_Window;;
     }
 
-    uint32_t GlfwWindow::getWidth() const 
-    {
-        return p_data_impl_->width;
-    }
 
-    uint32_t GlfwWindow::getHeight() const 
-    {
-        return p_data_impl_->height;
-    }
-
-    void* GlfwWindow::getNativeWindow() const
-    {
-        return p_data_impl_->window;
-    }
-
-    void GlfwWindow::setWindowIcon(unsigned char *data, int width, int height) const
+    void GlfwWindow::setIcon(unsigned char *data, const int width, const int height) const
     {
         GLFWimage images;
         images.pixels = data;
         images.width = width;
         images.height = height;
-        auto window = static_cast<GLFWwindow *>(getNativeWindow());
 
-        glfwSetWindowIcon(window, 1, &images);
+        glfwSetWindowIcon(m_Window, 1, &images);
+    }
+
+    void GlfwWindow::updateConfiguration(WindowConfiguration configuration) {
+        auto diff_config = m_Configuration ^ configuration;
+        m_Configuration = configuration;
+
+        for(int i = 0; i < WindowConfiguration::MAX_BIT; i++) {
+            //Iterate through all the config that was changed
+            auto flag = static_cast<WindowConfigurationOptions>(i);
+
+            //TODO Find a cleaner way to write this
+            if(diff_config.has(flag)) {
+                //There is a difference in the config
+                switch(flag) {
+                    case WindowConfigurationOptions::FULLSCREEN: {
+                        if(m_Configuration.has(flag)) {
+                            auto monitor = glfwGetPrimaryMonitor();
+                            auto mode = glfwGetVideoMode(monitor);
+                            glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+                            //TODO Resize the framebuffer here
+                        } else {
+                            glfwSetWindowMonitor(m_Window, nullptr, 0, 0, m_Width, m_Height, GLFW_DONT_CARE);
+                            //TODO Resize the framebuffer here
+                        }
+                        break;
+                    }
+                    case WindowConfigurationOptions::CURSOR_DISABLED: {
+                        if(m_Configuration.has(flag)) {
+                            glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                        } else {
+                            glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                        }
+                        break;
+                    }
+                    default:
+                        //TODO ASSERT that we never end up here. This would mean that a config is not supported
+                        break;
+                }
+            }
+        }
+
+    }
+
+    void GlfwWindow::onUpdate() const {
+        glfwPollEvents();
+        glfwSwapBuffers(m_Window);
+    }
+
+    bool GlfwWindow::shouldClose() const {
+        return glfwWindowShouldClose(m_Window);
     }
 }

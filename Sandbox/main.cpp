@@ -1,32 +1,13 @@
-//
-// Created by samuel on 8/30/24.
-//
-//
-// Created by lapor on 7/19/2024.
-//
-#include <GLFW/glfw3.h>
+#include <memory>
+#include <core/rendering/Renderer.hpp>
+#include <core/rendering/VertexArray.hpp>
 
-#include "core/window.h"
-#include "core/mouse.h"
-
-#include <iostream>
-
-#include "core/rendering/VertexBuffer.hpp"
-#include "core/rendering/IndexBuffer.hpp"
-#include "core/rendering/VertexArray.hpp"
-#include "core/rendering/BufferUtils.h"
-#include "core/rendering/Texture.h"
-#include "core/rendering/shader.h"
-#include "core/rendering/Renderer.hpp"
-#include "core/rendering/orthographic_camera.h"
-
-#include "core/events/event_bus.h"
-
-#include "platform/opengl/opengl_shader.h"
-#include "platform/opengl/GLCheck.h"
-#include "core/logging/ConsoleLogger.h"
+#include "core/inputs/input.h"
 #include "core/logging/Logger.h"
 #include "core/logging/LoggingFactory.h"
+#include "core/window/window.h"
+#include "core/window/window_configuration.h"
+#include "core/window/window_factory.h"
 
 #include "scene/components.h"
 #include "scene/entity.h"
@@ -34,6 +15,10 @@
 #include "scene/scene.h"
 
 #include "core/Profiling/profiler.h"
+#include "core/rendering/orthographic_camera.h"
+#include "core/rendering/Texture.h"
+#include "GLFW/glfw3.h"
+#include "platform/opengl/opengl_shader.h"
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
@@ -43,22 +28,20 @@ int main(void)
 	ENABLE_PROFILING;
 	hive::Logger::init(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Info));
 
-    auto window = hive::Window::create("Windows Window", 600, 700, hive::WindowFlags::DEFAULT);
+    //Init Logging
+    hive::Logger::setLogger(hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug));
 
-	// int width, height;
-	// auto data = stbi_load("../HiveEngine/assets/icon.png", &width, &height, nullptr, 0);
-	// window->setWindowIcon(data, width, height);
+    //Init Window
+    hive::WindowConfiguration configuration;
+    configuration.set(hive::WindowConfigurationOptions::CURSOR_DISABLED, true);
+    const auto window = std::unique_ptr<hive::Window>(hive::WindowFactory::Create("Hive Engine", 800, 600, configuration));
 
-    // auto mouse = hive::Mouse::create(window->getNativeWindow());
+    //Init Input
+    hive::Input::init(window->getNativeWindow());
 
-    //from learnopengl.com
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /*unsigned int shaderProgram = createBasicShader();
     unsigned int textureShader = createTextureShader();*/
-
     hive::OrthographicCamera m_Camera(-1.0f, 1.0f, -1.0f, 1.0f);
 
     std::string fragmentPath = "../HiveEngine/assets/shaders/basicColorShader.frag.glsl";
@@ -154,17 +137,10 @@ int main(void)
 
 
         /* Poll for and process events */
-        double xpos, ypos;
-        // mouse->getPosition(xpos, ypos);
-
-        // if (mouse->isButtonPressed(hive::ButtonValue::BUTTON_RIGHT))
-        // {
-            // std::cout << " Right mouse button pressed" << std::endl;
-        // }
         window->onUpdate();
     	END_BLOCK_PROFILING;
     }
 	DUMP_PROFILING("test.prof");
+    hive::Input::shutdown();
     return 0;
 }
-

@@ -23,7 +23,6 @@ namespace hive {
         virtual double getMouseX() const = 0;
         virtual double getMouseY() const = 0;
 
-        virtual void update() const = 0;
     protected:
         std::map<int, bool> keyPressState;
         std::map<int, bool> keyReleaseState;
