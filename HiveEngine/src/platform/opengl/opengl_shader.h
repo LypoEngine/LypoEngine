@@ -22,11 +22,11 @@ namespace hive
 
         void uploadUniformMat4(const std::string& name, const glm::mat4& matrix) const override;
 
-        void uploadUniformInt(const std::string& name, int value);
+        void uploadUniformInt(const std::string& name, int value) const override;
 
-        void uploadUniformFloat(const std::string& name, float value);
+        void uploadUniformFloat(const std::string& name, float value) const override;
 
-
+        void uploadUniformFloat4(const std::string& name, glm::vec4 value) const override;
 
     private:
         unsigned int program_id = 0;

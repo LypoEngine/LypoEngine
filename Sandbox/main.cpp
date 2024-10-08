@@ -12,6 +12,14 @@
 #include "scene/components.h"
 #include "scene/entity.h"
 
+#include "core/rendering/VertexBuffer.hpp"
+#include "core/rendering/IndexBuffer.hpp"
+#include "core/rendering/VertexArray.hpp"
+#include "core/rendering/BufferUtils.h"
+#include "core/rendering/Texture.h"
+#include "core/rendering/shader.h"
+#include "core/rendering/Renderer.hpp"
+#include "core/rendering/orthographic_camera.h"
 #include "scene/scene.h"
 
 #include "core/Profiling/profiler.h"
@@ -19,6 +27,8 @@
 #include "core/rendering/Texture.h"
 #include "GLFW/glfw3.h"
 #include "platform/opengl/opengl_shader.h"
+#include "stb_image.h"
+#include "core/rendering/Renderer2D.h"
 
 unsigned int createBasicShader();
 unsigned int createTextureShader();
@@ -40,8 +50,6 @@ int main(void)
     hive::Input::init(window->getNativeWindow());
 
 
-    /*unsigned int shaderProgram = createBasicShader();
-    unsigned int textureShader = createTextureShader();*/
     hive::OrthographicCamera m_Camera(-1.0f, 1.0f, -1.0f, 1.0f);
 
     std::string fragmentPath = "../HiveEngine/assets/shaders/basicColorShader.frag.glsl";
@@ -60,9 +68,9 @@ int main(void)
     vertexArray.reset(hive::VertexArray::create());
 
     float vertices[3 * 7] = {
-            -0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-            0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-            0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+            -0.5f, -0.5f, -0.1f, 0.8f, 0.2f, 0.8f, 1.0f,
+            0.5f, -0.5f, -0.1f, 0.2f, 0.3f, 0.8f, 1.0f,
+            0.0f,  0.5f, -0.1f, 0.8f, 0.8f, 0.2f, 1.0f
     };
 
     std::shared_ptr<hive::VertexBuffer> vertexBuffer = std::shared_ptr<hive::VertexBuffer>(hive::VertexBuffer::create(vertices, sizeof(vertices)));
@@ -82,10 +90,10 @@ int main(void)
     squareVA.reset(hive::VertexArray::create());
 
     float squareVertices[5 * 4] = {
-            -0.75f, -0.75f, 0.0f,  0.0f, 0.0f,
-            0.75f, -0.75f, 0.0f,  1.0f, 0.0f,
-            0.75f,  0.75f, 0.0f,  1.0f, 1.0f,
-            -0.75f,  0.75f, 0.0f, 0.0f, 1.0f
+            -0.75f, -0.75f, -0.2f,  0.0f, 0.0f,
+            0.75f, -0.75f, -0.2f,  1.0f, 0.0f,
+            0.75f,  0.75f, -0.2f,  1.0f, 1.0f,
+            -0.75f,  0.75f, -0.2f, 0.0f, 1.0f
     };
 
     std::shared_ptr<hive::VertexBuffer> squareVB = std::shared_ptr<hive::VertexBuffer>(hive::VertexBuffer::create(squareVertices, sizeof(squareVertices)));
@@ -101,6 +109,7 @@ int main(void)
     squareVA->setIndexBuffer(squareIB);
 
     std::shared_ptr<hive::Texture2D> m_Texture = hive::Texture2D::Create("../HiveEngine/assets/textures/Checkerboard.png");
+    std::shared_ptr<hive::Texture2D> grassTexture = hive::Texture2D::Create("../HiveEngine/assets/textures/grass.jpg");
 
     textureShader->bind();
     textureShader->uploadUniformInt("u_Texture", 0);
@@ -117,11 +126,14 @@ int main(void)
   
     float angle = 0.0f;
 
+
+    hive::Renderer::init();
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window->getNativeWindow())))
     {
     	BLOCK_PROFILING("BLOCK TEST", hive::BlockStatus::ON, hive::colors::Green);
-        angle += 0.5f;
+        angle += 0.005f;
 
         m_Camera.setPosition({ 0.5f, 0.0f, 0.0f });
         m_Camera.setRotation(angle);
@@ -130,10 +142,16 @@ int main(void)
 
         m_Texture->bind();
         hive::Renderer::submitGeometryToDraw(squareVA, textureShader);
-
         hive::Renderer::submitGeometryToDraw(vertexArray, colorShader);
 
+        hive::Renderer2D::beginScene(m_Camera);
+        hive::Renderer2D::drawQuad({ 0.0f, -0.5f }, { 1.0f, 0.5f }, { 0.8f, 0.2f, 0.8f, 1.0f });
+
+        hive::Renderer2D::drawQuad({ 0.0f, 0.0f, -0.3f }, { 10.0f, 10.0f }, grassTexture);
+
+
         hive::Renderer::endScene();
+        hive::Renderer2D::endScene();
 
 
         /* Poll for and process events */

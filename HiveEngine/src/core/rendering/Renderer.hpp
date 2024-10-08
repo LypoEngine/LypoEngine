@@ -11,6 +11,9 @@ namespace hive {
 	class Renderer
 	{
 	public:
+
+		static void init();
+
         static void beginScene(OrthographicCamera& camera, glm::vec4 backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
         static void endScene();
 

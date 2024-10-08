@@ -6,6 +6,14 @@
 #include <glad/glad.h>
 
 namespace hive {
+
+    void OpenGlRenderAPI::init()
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_DEPTH_TEST);
+    }
+
     void OpenGlRenderAPI::setClearColor(glm::vec4 color)
     {
         glClearColor(color.r, color.g, color.b, color.a);

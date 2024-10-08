@@ -26,6 +26,11 @@ namespace hive
                 renderAPI_->drawVertexArray(vertexArray);
             }
 
+            inline static void init()
+            {
+                renderAPI_->init();
+            }
+
         private:
             static RenderAPI* renderAPI_;
     };

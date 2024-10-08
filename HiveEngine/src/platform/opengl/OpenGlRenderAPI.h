@@ -12,6 +12,7 @@ namespace hive {
             virtual void setClearColor(glm::vec4) override;
             virtual void clear() override;
             void drawVertexArray(const std::shared_ptr<VertexArray>& vertexArray) override;
+            virtual void init() override;
     };
 }
 
