@@ -15,5 +15,9 @@ void hive::Logger::shutdown()
 }
 
 void hive::Logger::log(const std::string &msg, const LogLevel level) {
+    if(s_instance == nullptr)
+    {
+        return;
+    }
     s_instance->logImpl(msg, level);
 }

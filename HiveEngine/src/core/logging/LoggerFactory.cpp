@@ -2,7 +2,7 @@
 // Created by samuel on 9/1/24.
 //
 
-#include "LoggingFactory.h"
+#include "LoggerFactory.h"
 
 #include "ConsoleLogger.h"
 #include "FileLogger.h"
@@ -16,7 +16,7 @@ hive::FileLogger* createFileLogger(hive::LogLevel level) {
     return new hive::FileLogger(LOG_FILE_OUTPUT, level);
 }
 
-hive::Logger *hive::LoggingFactory::createLogger(LogOutputType type, LogLevel level) {
+hive::Logger *hive::LoggerFactory::createLogger(LogOutputType type, LogLevel level) {
     switch (type) {
         case LogOutputType::File:
             return createFileLogger(level);

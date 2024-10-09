@@ -5,12 +5,12 @@
 #include <gtest/gtest.h>
 
 #include "core/logging/Logger.h"
-#include "core/logging/LoggingFactory.h"
+#include "core/logging/LoggerFactory.h"
 
 
 TEST(ConsoleLogger, ConsoleLoggerShouldLogToConsole)
 {
-	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug);
+	hive::Logger *logger = hive::LoggerFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Debug);
 	hive::Logger::init(logger);
 
 	testing::internal::CaptureStdout();
@@ -27,7 +27,7 @@ TEST(ConsoleLogger, ConsoleLoggerShouldLogToConsole)
 
 TEST(ConsoleLogger, ConsoleLoggerShouldLogLevelEqualOrAbove)
 {
-	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Warning);
+	hive::Logger *logger = hive::LoggerFactory::createLogger(hive::LogOutputType::Console, hive::LogLevel::Warning);
 	EXPECT_TRUE(logger->isCorrect());
 
 	hive::Logger::init(logger);

@@ -5,6 +5,7 @@
 #pragma once
 #include <entt/entt.hpp>
 
+#include "Registry.h"
 #include "system_manager.h"
 
 namespace hive
@@ -17,7 +18,7 @@ namespace hive
 {
 
     using Entity = entt::entity;
-	using Registry = entt::registry;
+	using Registry = EntityRegistry;
 
 	class ECS
 	{
@@ -27,52 +28,51 @@ namespace hive
 
 		//System
 		static void registerSystem(System* system, const std::string &name);
+		static void removeSystem(const std::string &name);
 		static void updateSystems(float deltaTime);
 
 
 		//Entity
 		template <typename T, typename... Args>
-		static T& addComponent(Entity entity, Args&&... args)
+		static void addComponent(Entity entity, Args&&... args)
 		{
 			assert(!hasComponent<T>(entity));
-			return m_registry->emplace<T>(entity, std::forward<Args>(args)...);
+			return getCurrentRegistry()->addComponent<T>(entity, args...);
 		}
 
 		template <typename T>
 		void removeComponent(const Entity entity)
 		{
 			assert(hasComponent<T>(entity));
-			m_registry->remove<T>(entity);
+			getCurrentRegistry()->removeComponent<T>(entity);
 		}
-
-        template<typename T, typename... Args>
-        T& replaceComponent(Entity entity, Args&&... args)
-        {
-            return m_registry->emplace_or_replace<T>(entity, std::forward<Args>(args)...);
-        }
+        //
+        // template<typename T, typename... Args>
+        // T& replaceComponent(Entity entity, Args&&... args)
+        // {
+        //     return getCurrentRegistry()->emplace_or_replace<T>(entity, std::forward<Args>(args)...);
+        // }
 
 
 		template <typename T>
 		T& getComponent(const Entity entity)
 		{
 			assert(hasComponent<T>());
-			return m_registry->get<T>(entity);
+			return getCurrentRegistry()->getComponent<T>(entity);
 		}
 
 		template <typename T>
 		static bool hasComponent(const Entity entity)
 		{
-			return m_registry->all_of<T>(entity);
+			return getCurrentRegistry()->hasComponent<T>(entity);
 		}
 
-		static Entity createEntity();
+		static entt::entity createEntity();
 
 		//Other
-		static std::shared_ptr<Registry> getCurrentRegistry() { return m_registry; }
-
+		static Registry* getCurrentRegistry();
 
 	private:
-		static std::unique_ptr<SystemManager> m_systemManager;
-		static std::shared_ptr<Registry> m_registry;
+		static Registry* m_registry;
 	};
 }

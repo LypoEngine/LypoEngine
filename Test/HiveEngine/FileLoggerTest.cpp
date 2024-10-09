@@ -7,7 +7,7 @@
 
 #include "core/logging/FileLogger.h"
 #include "core/logging/Logger.h"
-#include "core/logging/LoggingFactory.h"
+#include "core/logging/LoggerFactory.h"
 
 
 #include <filesystem>
@@ -33,7 +33,7 @@ protected:
 
 TEST_F(FileLoggerTest, FileLoggerShouldLogToFile)
 {
-	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Debug);
+	hive::Logger *logger = hive::LoggerFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Debug);
 	hive::Logger::init(logger);
 	hive::Logger::log("Basic test", hive::LogLevel::Info);
 	hive::Logger::shutdown();
@@ -46,7 +46,7 @@ TEST_F(FileLoggerTest, FileLoggerShouldLogToFile)
 
 TEST_F(FileLoggerTest, FileLoggerShouldLogLevelEqualOrAbove)
 {
-	hive::Logger *logger = hive::LoggingFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Warning);
+	hive::Logger *logger = hive::LoggerFactory::createLogger(hive::LogOutputType::File, hive::LogLevel::Warning);
 	EXPECT_TRUE(logger->isCorrect());
 
 	hive::Logger::init(logger);

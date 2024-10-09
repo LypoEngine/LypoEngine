@@ -15,12 +15,17 @@ struct InputData {
 
 InputData *input_data;
 
-void hive::Input::init(void* window) {
+void hive::Input::init(WindowNativeData window_native_data)
+{
     Logger::log("Initializing Input", LogLevel::Debug);
     input_data = new InputData();
 
-    //TODO detect witch Window implementation they use. But for now default is glfw
-    input_data->input_manager = new GlfwInputManager(static_cast<GLFWwindow *>(window));
+    switch (window_native_data.backend)
+    {
+    case WindowNativeData::GLFW:
+        input_data->input_manager = new GlfwInputManager(static_cast<GLFWwindow*>(window_native_data.window_handle));
+        break;
+    }
 }
 
 void hive::Input::shutdown() {

@@ -15,7 +15,7 @@ namespace hive {
         Console, File
     };
 
-    class LoggingFactory {
+    class LoggerFactory {
     public:
         static Logger* createLogger(LogOutputType type, LogLevel logLevel);
     };

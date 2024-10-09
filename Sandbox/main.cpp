@@ -2,13 +2,13 @@
 
 #include "core/inputs/input.h"
 #include "core/logging/Logger.h"
-#include "core/logging/LoggingFactory.h"
+#include "core/logging/LoggerFactory.h"
 #include "core/window/window.h"
 #include "core/window/WindowManager.h"
 #include "core/window/window_configuration.h"
 #include "core/window/window_factory.h"
 #include "scene/components.h"
-#include "scene/ecs.h"
+#include "scene/ECS.h"
 #include "scene/query_builder.h"
 #include "scene/system_manager.h"
 
@@ -44,7 +44,7 @@ public:
 
 void setupLogger(const hive::LogOutputType type, const hive::LogLevel level)
 {
-    hive::Logger::setLogger(hive::LoggingFactory::createLogger(type, level));
+    hive::Logger::init(hive::LoggerFactory::createLogger(type, level));
 }
 
 void setupWindow(const hive::WindowConfiguration configuration)
@@ -56,7 +56,7 @@ void setupWindow(const hive::WindowConfiguration configuration)
 void setupInput()
 {
     auto window = hive::WindowManager::getCurrentWindow();
-    hive::Input::init(window->getNativeWindow());
+    hive::Input::init(window->getNativeWindowData());
 }
 
 void setupEcs()
@@ -76,7 +76,7 @@ void shutdown()
     hive::ECS::shutdown();
     hive::Input::shutdown();
     hive::WindowManager::setCurrentWindow(nullptr);
-    hive::Logger::setLogger(nullptr);
+    hive::Logger::shutdown();
 }
 
 void init()
