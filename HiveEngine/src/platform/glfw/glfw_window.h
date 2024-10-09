@@ -33,6 +33,7 @@ namespace hive
             void onUpdate() const override;
 
             [[nodiscard]] bool shouldClose() const override;
+            WindowConfiguration getConfiguration() override;
 
         private:
             int m_Width, m_Height;

@@ -4,6 +4,7 @@
 
 #include <glad/glad.h>
 #include "glfw_window.h"
+#include "core/window/window_configuration.h"
 
 
 #include "core/window/window_configuration.h"

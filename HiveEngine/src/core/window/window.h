@@ -2,11 +2,8 @@
 // Created by GuillaumeIsCoding on 7/26/2024.
 //
 #pragma once
+#include "window_configuration.h"
 
-
-namespace hive {
-    class WindowConfiguration;
-}
 
 namespace hive
 {
@@ -21,5 +18,6 @@ namespace hive
         virtual void setIcon(unsigned char* data, int width, int height) const = 0;
         [[nodiscard]] virtual bool shouldClose() const = 0;
         virtual void updateConfiguration(WindowConfiguration configuration) = 0;
+        virtual WindowConfiguration getConfiguration() = 0;
     };
 }
