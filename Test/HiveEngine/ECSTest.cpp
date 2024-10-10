@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "scene/ECS.h"
+#include "scene/query_builder.h"
 #include "scene/Registry.h"
 
 class ECSTest : public ::testing::Test
@@ -101,3 +102,64 @@ TEST_F(ECSTest, SystemShouldNotUpdateIfDisabled)
 	EXPECT_FALSE(test_system->is_updated);
 }
 
+
+TEST_F(ECSTest, QueryBuilderShouldFetchCorrectEntity)
+{
+
+	auto entity = hive::ECS::createEntity();
+	auto entity2 = hive::ECS::createEntity();
+
+	struct Player
+	{
+		int id;
+	};
+
+	struct Enemy
+	{
+
+	};
+	hive::ECS::addComponent<Player>(entity, 20);
+	hive::ECS::addComponent<Player>(entity2, 33);
+
+	auto query = hive::QueryBuilder<Player>();
+
+	auto it = query.each().begin();
+	auto [e1, p1] = *it;
+	it.operator++();
+
+	auto [e2, p2] = *it;
+
+
+	EXPECT_TRUE(p1.id == 33);
+	EXPECT_TRUE(p2.id == 20);
+}
+
+
+TEST_F(ECSTest, QueryBuilderShouldFetchWithMultipleComponent)
+{
+
+	auto entity = hive::ECS::createEntity();
+	auto entity2 = hive::ECS::createEntity();
+
+	struct Player
+	{
+		int id;
+	};
+
+	struct Enemy
+	{
+
+	};
+	hive::ECS::addComponent<Player>(entity, 20);
+	hive::ECS::addComponent<Player>(entity2, 33);
+	hive::ECS::addComponent<Enemy>(entity2);
+
+	auto query = hive::QueryBuilder<Player, Enemy>();
+
+	auto it = query.each().begin();
+	auto [e1, p1] = *it;
+	it.operator++();
+
+	EXPECT_EQ(it, query.each().end());
+	EXPECT_TRUE(p1.id == 33);
+}

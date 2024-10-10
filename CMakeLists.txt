@@ -5,5 +5,3 @@ add_subdirectory(HiveEngine)
 add_subdirectory(Sandbox)
 
 add_subdirectory(Test)
-
-add_subdirectory(Sandbox_local)

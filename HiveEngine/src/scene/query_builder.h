@@ -6,7 +6,7 @@
 #define QUERY_BUILDER_H
 
 #include <entt/entt.hpp>
-#include "ecs.h"
+#include "ECS.h"
 
 namespace hive
 {
@@ -19,7 +19,7 @@ namespace hive
 		//Return an iterator of a tuple of type <hive::Entity, Components...>
 		auto each() const
 		{
-			auto m_view = ECS::getCurrentRegistry()->view<Components...>();
+			auto m_view = ECS::getCurrentRegistry()->registry.view<Components...>();
 			return m_view.each();
 		}
 	};

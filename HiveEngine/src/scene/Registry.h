@@ -50,7 +50,9 @@ namespace hive
 			registry.remove<Component>(entity);
 		}
 
-	private:
+	protected:
+		template <typename... Component>
+		friend class QueryBuilder;
 		entt::registry registry;
 	};
 }
