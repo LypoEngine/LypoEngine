@@ -10,13 +10,13 @@ namespace hive {
     }
 
     ConsoleLogger::~ConsoleLogger() {
-        logImpl("Closing the console logger", LogLevel::Debug);
+        // logImpl("Closing the console logger", LogLevel::Info);
     }
 
     void ConsoleLogger::logImpl(const std::string &msg, LogLevel level) {
         if(m_logLevel <= level) {
             setLogLevelColor(level);
-            std::cout << msg << std::endl;
+            std::cout << msg;
             resetColor();
         }
     }

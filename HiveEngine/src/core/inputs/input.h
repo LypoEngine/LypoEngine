@@ -6,6 +6,11 @@
 #include "keycode.h"
 
 
+namespace hive
+{
+    struct WindowNativeData;
+}
+
 namespace hive {
     class Window;
 }
@@ -13,7 +18,7 @@ namespace hive {
 namespace hive {
     class Input {
     public:
-        static void init(void* window);
+        static void init(WindowNativeData window_native_data);
         static void shutdown();
 
         static bool getKey(KeyCode key_code);

@@ -4,6 +4,7 @@
 
 #include <glad/glad.h>
 #include "glfw_window.h"
+#include "core/window/window_configuration.h"
 
 
 #include "core/window/window_configuration.h"
@@ -49,9 +50,11 @@ namespace hive
         return m_Height;
     }
 
-    void * GlfwWindow::getNativeWindow() const {
-        return m_Window;;
+    WindowNativeData GlfwWindow::getNativeWindowData() const
+    {
+        return {m_Window, WindowNativeData::GLFW};
     }
+
 
 
     void GlfwWindow::setIcon(unsigned char *data, const int width, const int height) const
@@ -112,5 +115,10 @@ namespace hive
 
     bool GlfwWindow::shouldClose() const {
         return glfwWindowShouldClose(m_Window);
+    }
+
+    WindowConfiguration GlfwWindow::getConfiguration()
+    {
+        return m_Configuration;
     }
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
 #include <iostream>
 
 inline GLenum glCheckError_(const char *file, int line)
